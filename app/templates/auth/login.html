@@ -1,0 +1,32 @@
+{% extends "layout_admin.html" %}
+{% block content %}
+	<body class="login-body">
+		<div class="login">
+			<form action="/admin/login/" method="post">
+				<h1>
+					Login in Flask-Blog 
+				</h1>
+				<div class="form-input">
+					<p>Email Address</p>
+					<input type="text" name="email"/>
+				</div>
+				<div class="form-input">
+					<p>Password</p>
+					<input type="password" name="password"/>		
+				</div>
+				{% with messages = get_flashed_messages() %}
+				  {% if messages %}
+				    <ul class=flashes>
+				    {% for message in messages %}
+				      <li>{{ message }}</li>
+				    {% endfor %}
+				    </ul>
+				  {% endif %}
+				{% endwith %}
+				<div class="form-input breakspace">
+					<input type="submit" class="btn" value="Login" />
+				</div>
+			</form>
+		</div>
+	</body>
+{% endblock %}
