@@ -1,0 +1,24 @@
+{% extends "base/default.html" %}
+{% block head %}
+
+    <header id="header" data-url="https://luoleiorg.b0.upaiyun.com/tmp/yasuko/yasuko.jpg" class="home-header blog-background banner-mask lazy no cover" style="display: table; background-image: url("https://luoleiorg.b0.upaiyun.com/tmp/yasuko/yasuko.jpg!/format/webp");">
+
+        <div class="header-wrap"></div>
+        <div class="home-info-container">
+            <a href="/"><h2>Let's face reality, loyalty to an ideal.</h2></a>
+            <h4>面对现实，忠于理想</h4>
+        </div>
+        <div class="arrow_down" data-offset="-45">
+               <a href="javascript:;"></a>
+        </div>
+    </header>
+{#{{! The main content area on the homepage }}#}
+<main id="main" class="content homepage" role="main">
+{#{{! Each post will be output using this markup }}#}
+{#{{> "loop"}}#}
+{#{{!! After all the posts, we have the previous/next pagination links }}#}
+
+{#{{!-- {{pagination}} --}}#}
+</main>
+
+{% endblock %}
