@@ -47,7 +47,7 @@ var ftp = require('gulp-ftp');
 
 // 设置相关路径
 var paths = {
-    assets: 'assets',
+    static: 'static',
     sass: 'dev/css/sass/**/*',
     css: 'dev/css',
     js: 'dev/js/**/*', //js文件相关目录
@@ -73,7 +73,7 @@ gulp.task('sass', function() {
             sourceRoot: '/css/sass'
         }))
         .pipe(rename('dev.min.css'))
-        .pipe(gulp.dest('assets/css'));
+        .pipe(gulp.dest('static/css'));
 
     gulp.src(paths.sass)
         .pipe(plumber())
@@ -81,11 +81,11 @@ gulp.task('sass', function() {
         .pipe(concat('style.css'))
         .pipe(csscomb())
         .pipe(rename('uncompressed.css'))
-        .pipe(gulp.dest('assets/css'))
+        .pipe(gulp.dest('static/css'))
         .pipe(gulp.dest(paths.css))
         .pipe(minifycss())
         .pipe(rename('all.min.css'))
-        .pipe(gulp.dest('assets/css'));
+        .pipe(gulp.dest('static/css'));
 
 });
 
@@ -114,10 +114,10 @@ gulp.task('scripts', function() {
             }
         }))
         .pipe(concat('all.min.js'))
-        .pipe(gulp.dest('assets/js'))
+        .pipe(gulp.dest('static/js'))
         .pipe(rename('dev.min.js'))
         .pipe(sourcemaps.write())
-        .pipe(gulp.dest('assets/js'));
+        .pipe(gulp.dest('static/js'));
 
 });
 
@@ -133,7 +133,7 @@ gulp.task('image', function() {
             }],
             use: [pngquant()]
         }))
-        .pipe(gulp.dest('assets/images'));
+        .pipe(gulp.dest('static/images'));
 });
 
 
@@ -176,9 +176,9 @@ gulp.task('standardsprite', ['retinasprite'], function(cb) {
         .pipe(gulp.dest('dev/img/')).on('end', cb)
 
 })
-gulp.task('sprite2assets', ['retinasprite', 'standardsprite'], function() {
+gulp.task('sprite2static', ['retinasprite', 'standardsprite'], function() {
     console.log(chalk.green('[转移] 复制精灵图到资源目录'))
-    gulp.src('dev/img/*.png').pipe(gulp.dest('assets/images/'))
+    gulp.src('dev/img/*.png').pipe(gulp.dest('static/images/'))
 })
 
 /**
@@ -202,7 +202,7 @@ gulp.task('build', function() {
         console.log(chalk.red('[清理] 删除旧有build文件夹'))
     });
     gulp.src('*.html').pipe(gulp.dest('build'))
-    gulp.src('assets/**/!(*dev*)*').pipe(gulp.dest('build/assets'))
+    gulp.src('static/**/!(*dev*)*').pipe(gulp.dest('build/static'))
 });
 
 
@@ -239,6 +239,6 @@ gulp.task('ftp', function() {
 
 
 
-gulp.task('sprite', ['retinasprite', 'standardsprite', 'sprite2assets']);
+gulp.task('sprite', ['retinasprite', 'standardsprite', 'sprite2static']);
 gulp.task('default', ['watch', 'scripts']);
 gulp.task('watch:base', ['watch']);

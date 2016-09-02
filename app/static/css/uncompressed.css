@@ -1044,7 +1044,7 @@ h1
     -webkit-animation-iteration-count: infinite; 
 
     opacity: .25;
-    background: url('../../assets/images/escheresque_ste.png');
+    background: url('../../static/images/escheresque_ste.png');
     background-color: rgba(0, 0, 0, .05);
 }
 

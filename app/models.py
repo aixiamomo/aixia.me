@@ -1,11 +1,12 @@
 # -*- coding: utf-8 -*-
 import datetime
-from . import db
+from . import db, login_manager
 
 from werkzeug.security import generate_password_hash, check_password_hash
+from flask_login import UserMixin
 
 
-class User(db.Model):
+class User(db.Model, UserMixin):
     __tablename__ = 'admin'
     id_user = db.Column(db.Integer, primary_key=True)
     email = db.Column(db.String(64), index=True)
@@ -45,3 +46,9 @@ class Tag(db.Model):
     update_date = db.Column(db.DateTime, default=datetime.date.today())
 
     post_set = db.relationship('Post', backref='tag', lazy='dynamic')
+
+
+@login_manager.user_loader
+def load_user(user_id):
+    """加载用户的回调函数"""
+    return User.query.get(int(user_id))
