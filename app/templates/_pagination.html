@@ -1,0 +1,12 @@
+{% macro pagination_widget(pagination, endpoint) %}
+    {% if pagination.has_prev %}
+        <a class="newer-posts" href="{{ url_for(endpoint,
+                page = pagination.page - 1, **kwargs) }}">
+            <span aria-hidden="true">&larr;</span> Newer Posts</a>
+    {% endif %}
+    <span class="page-number">Page {{ pagination.page }} of {{ pagination.pages }}</span>
+    {% if pagination.has_next %}
+        <a class="older-posts" href="{{ url_for(endpoint,
+                page=pagination.next_num, **kwargs) }}">Older Posts <span aria-hidden="true">&rarr;</span></a>
+    {% endif %}
+{% endmacro %}

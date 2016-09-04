@@ -1,0 +1,138 @@
+{% extends "base/default.html" %}
+{% block body %}
+
+    {% if post.cover %}
+    <img src="{{ post.cover }}!wechatsmall" class="wechat-only">
+    <header id="header" class="home-header blog-background banner-mask lazy" data-url="{{ post.cover }}">
+    {% else %}
+    <img src="/" class="hide">
+    <header id="header" class="home-header blog-background banner-mask lazy" data-url="{{ post.cover }}" style="background-image:no-cover">
+    {% endif %}
+
+        <div class="nav-header">
+        <div class="nav-header-container">
+             <a href="{{ url_for('main.index') }}" class="back-home">Home</a>
+        </div>
+
+        </div>
+        <div class="header-wrap" >
+            <div class="post-info-container">
+                <h2 class="post-page-title ">
+                {{ post.title }}
+            </h2>
+                <time class="post-page-time">{{ moment(post.create_date).format('LL') }}</time>
+                <span class="post-page-author">爱夏</span>
+                <span class="post-page-tags">
+                    {% for tag in post.tags.all() %}
+                        <a href="/tag/travel/">{{ tag.name }}</a>
+                    {% endfor %}
+               </span>
+            </div>
+
+        </div>
+        <div class="arrow_down">
+               <a href="javascript:;"></a>
+        </div>
+    </header>
+
+<main class="content" id="main" role="main">
+
+    <article class="post {{post_class}}">
+
+     <section class="post-content">
+     <div class="single-post-inner">
+        {{ post.content | safe }}
+        <div class="tag-box">
+            {% for tag in post.tags.all() %}
+                <a href="/tag/travel/" style="color: rgb(255, 255, 255);" class="">
+                    <i class="iconfont iconfont-luolei"></i>{{ tag.name }}</a>
+            {% endfor %}
+        </div>
+        <div class="money-like" id="like-money">
+{#            悬停出二维码#}
+            <div class="reward-button">赏
+            <span class="money-code">
+            <span class="alipay-code">
+                <a href="javascript:;">
+                <img data-url="/static/images/qr-alipay-256.png" class="alipay-img" src="data:image/gif;base64,UklGRkoAAABXRUJQVlA4WAoAAAAQAAAAAAAAAAAAQUxQSAsAAAABBxAREYiI/gcAAABWUDggGAAAADABAJ0BKgEAAQABABwlpAADcAD+/gbQAA=="><b>支付宝扫码打赏</b>
+                </a>
+            </span>
+            <span class="wechat-code">
+                <img data-url="/static/images/qr-wechat-256.png" class="wechat-img" src="data:image/gif;base64,UklGRkoAAABXRUJQVlA4WAoAAAAQAAAAAAAAAAAAQUxQSAsAAAABBxAREYiI/gcAAABWUDggGAAAADABAJ0BKgEAAQABABwlpAADcAD+/gbQAA=="><b>微信打赏</b>
+            </span>
+            </span>
+
+            </div>
+            <p class="money-notice">若你觉得我的文章对你有帮助,欢迎点击上方按钮对我打赏</p>
+        </div>
+        <div class="qr-code">
+            <img src="https://encrypt.proxy.is26.com/qr?content=二维码" alt="">
+            <p>扫描二维码,分享此文章</p>
+        </div>
+     </div>
+    </section>
+
+
+
+        <section class="author">
+            <figure class="author-image duoshuo-loaded">
+{#                  用户头像#}
+                <a class="img" href="javascript:;" style="background-image: url('/static/images/wechat-thumb.jpg')">
+                    <span class="hide">爱夏's Picture</span></a>
+            </figure>
+
+            <section class="author-detail">
+                <a href="javascript:;">爱夏</a>
+                 <p>自学Python，尝试Flask-Web开发，尝试写博客，现居上海</p>
+                <div class="author-meta">
+                    <span class="author-location">Shanghai「上海」</span>
+                    <span class="author-link"><a href="{{ url_for('main.index') }}">aixia's blog</a></span>
+                </div>
+
+            </section>
+        </section>
+
+
+
+
+
+    </article>
+          <section class="share">
+            <div class="share-icons" id="share-icons">
+               <a class="icon-share" href="http://weibo.com/720974234">
+                    <span class=""><i class="iconfont iconfont-weibo">&#xe607;</i></span>
+                </a>
+                <a class="icon-share icon-github" href="http://github.com/aixiamomo">
+                    <span class=""><i class="iconfont  iconfont-github">&#xe60d;</i></span>
+                </a>
+                <a class="icon-share icon-weibo" href="http://www.zhihu.com/people/suki-98-29">
+                    <span class=""><i class="iconfont  iconfont-zhihu">&#xe609;</i></span>
+                </a>
+            </div>
+        </section>
+{#    阅读下一篇#}
+{#    <aside class="read-next">#}
+{#        {{#next_post}}#}
+{#        <a class="read-next-story {{#if image}} lazy" data-url="{{image}}" style="background-image: url(){{else}}no-cover{{/if}}" href="{{url}}">#}
+{#            <section class="post">#}
+{#                <h2>{{title}}</h2>#}
+{#                <p>{{excerpt words="6"}}&hellip;</p>#}
+{#            </section>#}
+{#        </a>#}
+{#        {{/next_post}}#}
+{#        {{#prev_post}}#}
+{#        <a class="read-next-story prev {{#if image}} lazy" data-url="{{image}}" style="background-image: url(){{else}}no-cover{{/if}}" href="{{url}}">#}
+{#            <section class="post">#}
+{#                <h2>{{title}}</h2>#}
+{#                <p>{{excerpt words="6"}}&hellip;</p>#}
+{#            </section>#}
+{#        </a>#}
+{#        {{/prev_post}}#}
+{#    </aside>#}
+    <section class="comment-area yasuko-only" >
+
+    </section>
+    </main>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/prism.js') }}"></script>
+    
+{% endblock %}

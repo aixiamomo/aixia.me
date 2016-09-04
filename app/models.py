@@ -8,7 +8,7 @@ from flask_login import UserMixin
 
 class User(db.Model, UserMixin):
     __tablename__ = 'admin'
-    id_user = db.Column(db.Integer, primary_key=True)
+    id = db.Column(db.Integer, primary_key=True)
     email = db.Column(db.String(64), index=True)
     password_hash = db.Column(db.String(128))
 
@@ -24,31 +24,55 @@ class User(db.Model, UserMixin):
         return check_password_hash(self.password_hash, password)
 
 
+belong_to = db.Table('belong_to',
+                     db.Column('post_id', db.Integer, db.ForeignKey('posts.id')),
+                     db.Column('tag_id', db.Integer, db.ForeignKey('tags.id'))
+                     )
+
+
 class Post(db.Model):
-    __tablename__ = 'post'
-    id_post = db.Column(db.Integer, primary_key=True)
+    __tablename__ = 'posts'
+    id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(64))
+    cover = db.Column(db.String(64))
     content = db.Column(db.Text)
     markdown = db.Column(db.Text)
+    publish = db.Column(db.Boolean, index=True)
 
     create_date = db.Column(db.DateTime, default=datetime.date.today())
     update_date = db.Column(db.DateTime, default=datetime.date.today())
 
-    tag_id = db.Column(db.Integer, db.ForeignKey('tag.id_tag'))
+    tags = db.relationship('Tag',
+                           secondary=belong_to,
+                           backref=db.backref('posts', lazy='dynamic'),
+                           lazy='dynamic')
+
+    @staticmethod
+    def generate_fake(count=20):
+        from random import seed, randint
+        import forgery_py
+
+        seed()
+        for i in range(count):
+            p = Post(title=forgery_py.internet.user_name(True),
+                     content=forgery_py.lorem_ipsum.sentences(randint(1, 3)),
+                     create_date=forgery_py.date.date(True),
+                     )
+            db.session.add(p)
+            db.session.commit()
 
 
 class Tag(db.Model):
-    __tablename__ = 'tag'
-    id_tag = db.Column(db.Integer, primary_key=True)
+    __tablename__ = 'tags'
+    id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(64))
+    url_name = db.Column(db.String(64), index=True)
 
     create_date = db.Column(db.DateTime, default=datetime.date.today())
     update_date = db.Column(db.DateTime, default=datetime.date.today())
 
-    post_set = db.relationship('Post', backref='tag', lazy='dynamic')
-
 
 @login_manager.user_loader
-def load_user(user_id):
+def load_user(id_user):
     """加载用户的回调函数"""
-    return User.query.get(int(user_id))
+    return User.query.get(int(id_user))

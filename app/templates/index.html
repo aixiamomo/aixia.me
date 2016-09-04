@@ -1,5 +1,5 @@
 {% extends "base/default.html" %}
-{% block head %}
+{% block body %}
 
     <header id="header" data-url="https://luoleiorg.b0.upaiyun.com/tmp/yasuko/yasuko.jpg" class="home-header blog-background banner-mask lazy no cover" style="display: table; background-image: url("https://luoleiorg.b0.upaiyun.com/tmp/yasuko/yasuko.jpg!/format/webp");">
 
@@ -12,13 +12,16 @@
                <a href="javascript:;"></a>
         </div>
     </header>
+
 {#{{! The main content area on the homepage }}#}
 <main id="main" class="content homepage" role="main">
 {#{{! Each post will be output using this markup }}#}
 {#{{> "loop"}}#}
+{% include '_loop.html' %}
 {#{{!! After all the posts, we have the previous/next pagination links }}#}
 
-{#{{!-- {{pagination}} --}}#}
+{#{{!-- {{pagination}} --}}分页#}
+
 </main>
 
 {% endblock %}

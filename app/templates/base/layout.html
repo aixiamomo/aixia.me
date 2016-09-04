@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8">
-    <title>Cody's Blog</title>
+    <title>Aixia's Blog</title>
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
     <link href="{{ url_for('admin.static', filename='css/ghostdown.css') }}" media="all" rel="stylesheet">
   </head>
@@ -11,7 +11,7 @@
     <header id="top-header">
       <nav>
         <ul>
-          <li><a href="{{ url_for('posts_index') }}">View Content</a></li>
+{#          <li><a href="{{ url_for('posts_index') }}">View Content</a></li>#}
           <li><a href="{{ url_for('admin.logout') }}">Logout</a></li>
         </ul>
       </nav>
@@ -21,22 +21,22 @@
       <div id="post-list">
       <p>All Posts</p>
       <button class='custom-button create-button'>
-        <a href="{{ url_for('editor') }}">New Post</a>
+{#        <a href="{{ url_for('editor') }}">New Post</a>#}
       </button>
       <hr>
       {% for post in posts %}
         <div id="post-{{ post.id }}" class="post-listing">
-          <a href="{{ url_for('posts_index_single', post_id=post.id) }}"><h3>{{ post.title }}</h3></a>
+{#          <a href="{{ url_for('posts_index_single', post_id=post.id) }}"><h3>{{ post.title }}</h3></a>#}
         </div>
       {% endfor %}
       </div>
       <div id="post-preview">
         {% if post %}
           <button class='custom-button'>
-            <a href="{{ url_for('editor_edit_post', post_id=post.id) }}">Edit</a>
+{#            <a href="{{ url_for('editor_edit_post', post_id=post.id) }}">Edit</a>#}
           </button>
           <div id="post-html">
-          {{ post.html | safe }}
+{#          {{ post.html | safe }}#}
           </div>
         {% endif %}
       </div>
