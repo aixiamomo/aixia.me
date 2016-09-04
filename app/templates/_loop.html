@@ -8,11 +8,16 @@
 <article class="post-in-list {{post_class}}">
         <section class="post-excerpt">
         <a href="{{ url_for('main.post', id=post.id) }}">
-            <p>
+            {% if post.cover %}
+                <p>
                 <img data-url="{{ post.cover }}" class="lazy" alt="cover" src="{{ post.cover }}" style="display: block;">
-            </p>
+                </p>
+            {% else %}
+                <blockquote><em></em></blockquote>
+            {% endif %}
+
         </a>
-        <div class="info-mask">
+    <div class="info-mask">
     <div class="mask-wrapper">
     <h2 class="post-title"><a href="{{ url_for('main.post', id=post.id) }}">{{ post.title }}</a></h2>
     <div class="post-meta">
@@ -36,9 +41,9 @@
                 <h2 class="post-title"><a href="{{ url_for('main.post', id=post.id) }}">{{ post.title }}</a></h2>
                  <p class="post-short-intro">#概览</p>
                 <span class="post-tags">
-            {#        {% for tag in post.tags %}#}
-                        <a href="/tag/travel/">标签</a>
-            {#        {% endfor %}#}
+                    {% for tag in post.tags %}
+                        <a href="{{ url_for('.tag', url_name=tag.url_name) }}">{{ tag.name }}</a>
+                    {% endfor %}
                 </span>
                 <a href="{{ url_for('main.post', id=post.id) }}" class="btn-post-excerpt">阅读原文</a>
             </div>

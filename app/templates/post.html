@@ -1,19 +1,24 @@
 {% extends "base/default.html" %}
+{% block meta_title %}
+    {{ post.title }}
+{% endblock %}
 {% block body %}
 
     {% if post.cover %}
     <img src="{{ post.cover }}!wechatsmall" class="wechat-only">
     <header id="header" class="home-header blog-background banner-mask lazy" data-url="{{ post.cover }}">
     {% else %}
+{#        无封面时显示默认图片#}
     <img src="/" class="hide">
-    <header id="header" class="home-header blog-background banner-mask lazy" data-url="{{ post.cover }}" style="background-image:no-cover">
+    <header id="header" class="home-header blog-background banner-mask lazy"
+            data-url="https://luoleiorg.b0.upaiyun.com/tmp/yasuko/yasuko.jpg"
+            style="display: table; background-image: url(&quot;https://luoleiorg.b0.upaiyun.com/tmp/yasuko/yasuko.jpg!/format/webp&quot;);">
     {% endif %}
 
         <div class="nav-header">
         <div class="nav-header-container">
              <a href="{{ url_for('main.index') }}" class="back-home">Home</a>
         </div>
-
         </div>
         <div class="header-wrap" >
             <div class="post-info-container">
@@ -24,7 +29,7 @@
                 <span class="post-page-author">爱夏</span>
                 <span class="post-page-tags">
                     {% for tag in post.tags.all() %}
-                        <a href="/tag/travel/">{{ tag.name }}</a>
+                        <a href="{{ url_for('.tag', url_name=tag.url_name) }}">{{ tag.name }}</a>
                     {% endfor %}
                </span>
             </div>
@@ -44,7 +49,7 @@
         {{ post.content | safe }}
         <div class="tag-box">
             {% for tag in post.tags.all() %}
-                <a href="/tag/travel/" style="color: rgb(255, 255, 255);" class="">
+                <a href="{{ url_for('.tag', url_name=tag.url_name) }}" style="color: rgb(255, 255, 255);" class="">
                     <i class="iconfont iconfont-luolei"></i>{{ tag.name }}</a>
             {% endfor %}
         </div>

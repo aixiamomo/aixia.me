@@ -37,7 +37,7 @@ class Post(db.Model):
     cover = db.Column(db.String(64))
     content = db.Column(db.Text)
     markdown = db.Column(db.Text)
-    publish = db.Column(db.Boolean, index=True)
+    publish = db.Column(db.Boolean, default=True, index=True)
 
     create_date = db.Column(db.DateTime, default=datetime.date.today())
     update_date = db.Column(db.DateTime, default=datetime.date.today())

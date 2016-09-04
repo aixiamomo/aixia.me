@@ -1,4 +1,7 @@
 {% extends "base/default.html" %}
+{% block meta_title %}
+    {{ tag.name }} - 爱夏的博客
+{% endblock %}
 {% block body %}
 
     <header id="header" data-url="https://luoleiorg.b0.upaiyun.com/tmp/yasuko/yasuko.jpg"
@@ -8,10 +11,10 @@
 
         <div class="header-wrap"></div>
         <div class="home-info-container">
-            <a href="/"><h2>Let's face reality, loyalty to an ideal.</h2></a>
-            <h4>面对现实，忠于理想</h4>
+            <a href="/"><h2>Every thing about</h2></a>
+            <h4>「{{ tag.name }}」</h4>
         </div>
-        <div class="arrow_down" data-offset="-45">
+        <div class="arrow_down">
                <a href="javascript:;"></a>
         </div>
     </header>
