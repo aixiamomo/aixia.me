@@ -18,9 +18,14 @@ def index():
 @main.route('/post/<int:id>')
 def post(id):
     post = Post.query.get_or_404(id)  # 只显示提交了的文章
+    page = id
+    pagination = Post.query.filter_by(publish=True).order_by(Post.create_date.desc()).paginate(
+        page, per_page=1,
+        error_out=False
+    )
     if post.publish is None or False:
         abort(404)
-    return render_template('post.html', post=post)
+    return render_template('post.html', post=post, pagination=pagination)
 
 
 @main.route('/tag/<url_name>')

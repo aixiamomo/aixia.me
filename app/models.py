@@ -1,9 +1,10 @@
 # -*- coding: utf-8 -*-
-import datetime
+import datetime, bleach
 from . import db, login_manager
 
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
+from markdown import markdown
 
 
 class User(db.Model, UserMixin):
@@ -35,8 +36,9 @@ class Post(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(64))
     cover = db.Column(db.String(64))
-    content = db.Column(db.Text)
-    markdown = db.Column(db.Text)
+    body = db.Column(db.Text)
+    body_html = db.Column(db.Text)
+    scheme = db.Column(db.Text)
     publish = db.Column(db.Boolean, default=True, index=True)
 
     create_date = db.Column(db.DateTime, default=datetime.date.today())
@@ -55,11 +57,30 @@ class Post(db.Model):
         seed()
         for i in range(count):
             p = Post(title=forgery_py.internet.user_name(True),
-                     content=forgery_py.lorem_ipsum.sentences(randint(1, 3)),
+                     body=forgery_py.lorem_ipsum.sentences(randint(1, 3)),
                      create_date=forgery_py.date.date(True),
                      )
             db.session.add(p)
             db.session.commit()
+
+    @staticmethod
+    def on_changed_body(target, value, oldvalue, initiator):
+        """把body字段中的文本渲染成HTML格式，保存在body_html"""
+        allowed_tags = ['a', 'abbr', 'acronym', 'b', 'blockquote', 'code',
+                        'em', 'i', 'li', 'ol', 'pre', 'strong', 'ul',
+                        'h1', 'h2', 'h3', 'p']  # 白名单
+        target.body_html = bleach.linkify(bleach.clean(
+            markdown(value, output_format='html'),
+            tags=allowed_tags, strip=True))  # 真实的转换过程
+
+    @staticmethod
+    def scheme_html(target, value, oldvalue, initiator):
+        allowed_tags = []
+        target.scheme = bleach.linkify(bleach.clean(value, tags=allowed_tags, strip=True))[:42] + '...'
+
+
+db.event.listen(Post.body, 'set', Post.on_changed_body)
+db.event.listen(Post.body_html, 'set', Post.scheme_html)
 
 
 class Tag(db.Model):

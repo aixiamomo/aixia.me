@@ -46,7 +46,11 @@
 
      <section class="post-content">
      <div class="single-post-inner">
-        {{ post.content | safe }}
+        {% if post.body_html %}
+            {{ post.body_html | safe }}
+        {% else %}
+            {{ post.body }}
+        {% endif %}
         <div class="tag-box">
             {% for tag in post.tags.all() %}
                 <a href="{{ url_for('.tag', url_name=tag.url_name) }}" style="color: rgb(255, 255, 255);" class="">
@@ -97,10 +101,6 @@
             </section>
         </section>
 
-
-
-
-
     </article>
           <section class="share">
             <div class="share-icons" id="share-icons">
@@ -116,24 +116,46 @@
             </div>
         </section>
 {#    阅读下一篇#}
-{#    <aside class="read-next">#}
-{#        {{#next_post}}#}
-{#        <a class="read-next-story {{#if image}} lazy" data-url="{{image}}" style="background-image: url(){{else}}no-cover{{/if}}" href="{{url}}">#}
-{#            <section class="post">#}
-{#                <h2>{{title}}</h2>#}
-{#                <p>{{excerpt words="6"}}&hellip;</p>#}
-{#            </section>#}
-{#        </a>#}
-{#        {{/next_post}}#}
-{#        {{#prev_post}}#}
-{#        <a class="read-next-story prev {{#if image}} lazy" data-url="{{image}}" style="background-image: url(){{else}}no-cover{{/if}}" href="{{url}}">#}
-{#            <section class="post">#}
-{#                <h2>{{title}}</h2>#}
-{#                <p>{{excerpt words="6"}}&hellip;</p>#}
-{#            </section>#}
-{#        </a>#}
-{#        {{/prev_post}}#}
-{#    </aside>#}
+    <aside class="read-next">
+        {% if pagination.has_prev %}
+{#            遍历上一页分页对象，虽然只有一个#}
+            {% for x in pagination.prev().items %}
+            {% if x.cover != None %}
+                <a class="read-next-story  lazy" data-url="{{ x.cover }}"
+                   style="display: flex; background-image: url({{ x.cover }} + '!/fw/750/format/webp');"
+                   href="{{ url_for('.post', id=x.id) }}">
+            {% else %}
+                <a class="read-next-story no-cover" href="{{ url_for('.post', id=x.id) }}">
+            {% endif %}
+            <section class="post">
+                <h2>{{ x.title }}</h2>
+                {% if post.scheme != None %}
+                <p>{{ x.scheme }}</p>
+                {% endif %}
+            </section>
+            </a>
+            {% endfor %}
+        {% endif %}
+
+        {% if pagination.has_next  %}
+            {% for x in pagination.next().items %}
+            {% if x.cover != None %}
+                <a class="read-next-story  lazy" data-url="{{ x.cover }}"
+                   style="display: flex; background-image: url({{ x.cover }} + '!/fw/750/format/webp');"
+                   href="{{ url_for('.post', id=x.id) }}">
+            {% else %}
+                <a class="read-next-story no-cover" href="{{ url_for('.post', id=x.id) }}">
+            {% endif %}
+            <section class="post">
+                <h2>{{ x.title }}</h2>
+                {% if post.scheme != None %}
+                <p>{{ x.scheme }}</p>
+                {% endif %}
+            </section>
+            </a>
+            {% endfor %}
+        {% endif %}
+
     <section class="comment-area yasuko-only" >
 
     </section>
