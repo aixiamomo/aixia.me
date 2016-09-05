@@ -3,6 +3,7 @@
 2. 添加Markdown
 3. Tag分类
 4. 分页功能
+5. General Setting
 
 
 ##To Do

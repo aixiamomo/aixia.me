@@ -86,11 +86,19 @@ db.event.listen(Post.body_html, 'set', Post.scheme_html)
 class Tag(db.Model):
     __tablename__ = 'tags'
     id = db.Column(db.Integer, primary_key=True)
+    cover = db.Column(db.String(64))
     name = db.Column(db.String(64))
     url_name = db.Column(db.String(64), index=True)
 
-    create_date = db.Column(db.DateTime, default=datetime.date.today())
-    update_date = db.Column(db.DateTime, default=datetime.date.today())
+
+class General(db.Model):
+    __tablename__ = '设置'
+    id = db.Column(db.Integer, primary_key=True)
+    blog_title = db.Column(db.String(64), default="Let's face reality, loyalty to an ideal.")
+    blog_description = db.Column(db.String(64), default="面对现实，忠于理想")
+    blog_cover = db.Column(db.String(64), default='https://luoleiorg.b0.upaiyun.com/tmp/yasuko/yasuko.jpg')
+    Posts_per_page = db.Column(db.Integer, default=5)
+    author_detail = db.Column(db.String(64), default='自学Python，尝试Flask-Web开发，尝试写博客，现居上海')
 
 
 @login_manager.user_loader
