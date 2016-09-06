@@ -1,0 +1,34 @@
+{% extends "admin.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+{% import "_macros.html" as macros %}
+
+{% block content %}
+    <div class="content">
+    <ul class="posts">
+    {% for post in posts %}
+        <li class="post">
+            <div class="post-content">
+                <div class="post-title">{{ post.title }}</div>
+                <div class="post-date">{{ post.publish_date }}</div>
+                <div class="post-footer">
+                        <a href="{{ url_for('admin.editor', url_name=post.url_name) }}">
+                            <span class="label label-primary">Edit</span>
+                        </a>
+                    <a href="{{ url_for('main.post', url_name=post.url_name) }}">
+                        <span class="label label-default">Permalink</span>
+                    </a>
+                    <a href="">
+                    <span class="label label-primary"> Delete</span>
+                    </a>
+                </div>
+             </div>
+        </li>
+    {% endfor %}
+    </ul>
+
+    <div class="pagination">
+        {{ macros.pagination_widget(pagination, 'admin.manage_posts') }}
+    </div>
+
+    </div>
+{% endblock %}

@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
-import datetime, bleach
+import datetime
+import bleach
 from . import db, login_manager
 
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -12,6 +13,11 @@ class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
     email = db.Column(db.String(64), index=True)
     password_hash = db.Column(db.String(128))
+    blog_title = db.Column(db.String(64), default="Let's face reality, loyalty to an ideal.")
+    blog_description = db.Column(db.String(64), default=u"面对现实，忠于理想")
+    blog_cover = db.Column(db.String(64), default='https://luoleiorg.b0.upaiyun.com/tmp/yasuko/yasuko.jpg')
+    Posts_per_page = db.Column(db.Integer, default=5)
+    author_detail = db.Column(db.Text, default=u'自学Python，尝试Flask-Web开发，尝试写博客，现居上海')
 
     @property
     def password(self):
@@ -38,10 +44,12 @@ class Post(db.Model):
     cover = db.Column(db.String(64))
     body = db.Column(db.Text)
     body_html = db.Column(db.Text)
-    scheme = db.Column(db.Text)
+    summary = db.Column(db.Text)
     publish = db.Column(db.Boolean, default=True, index=True)
+    url_name = db.Column(db.String(64), index=True)
 
     create_date = db.Column(db.DateTime, default=datetime.date.today())
+    publish_date = db.Column(db.DateTime, default=datetime.date.today())
     update_date = db.Column(db.DateTime, default=datetime.date.today())
 
     tags = db.relationship('Tag',
@@ -59,6 +67,7 @@ class Post(db.Model):
             p = Post(title=forgery_py.internet.user_name(True),
                      body=forgery_py.lorem_ipsum.sentences(randint(1, 3)),
                      create_date=forgery_py.date.date(True),
+                     url_name=forgery_py.internet.user_name(True)
                      )
             db.session.add(p)
             db.session.commit()
@@ -76,7 +85,7 @@ class Post(db.Model):
     @staticmethod
     def scheme_html(target, value, oldvalue, initiator):
         allowed_tags = []
-        target.scheme = bleach.linkify(bleach.clean(value, tags=allowed_tags, strip=True))[:42] + '...'
+        target.summary = bleach.linkify(bleach.clean(value, tags=allowed_tags, strip=True))[:42] + '...'
 
 
 db.event.listen(Post.body, 'set', Post.on_changed_body)
@@ -89,16 +98,6 @@ class Tag(db.Model):
     cover = db.Column(db.String(64))
     name = db.Column(db.String(64))
     url_name = db.Column(db.String(64), index=True)
-
-
-class General(db.Model):
-    __tablename__ = '设置'
-    id = db.Column(db.Integer, primary_key=True)
-    blog_title = db.Column(db.String(64), default="Let's face reality, loyalty to an ideal.")
-    blog_description = db.Column(db.String(64), default="面对现实，忠于理想")
-    blog_cover = db.Column(db.String(64), default='https://luoleiorg.b0.upaiyun.com/tmp/yasuko/yasuko.jpg')
-    Posts_per_page = db.Column(db.Integer, default=5)
-    author_detail = db.Column(db.String(64), default='自学Python，尝试Flask-Web开发，尝试写博客，现居上海')
 
 
 @login_manager.user_loader

@@ -1,15 +1,15 @@
 {% extends "base/default.html" %}
 {% block body %}
 
-    <header id="header" data-url="https://luoleiorg.b0.upaiyun.com/tmp/yasuko/yasuko.jpg"
+    <header id="header" data-url="{{ user.blog_cover }}"
             class="home-header blog-background banner-mask lazy no cover"
             style="display: table;
-            background-image: url("https://luoleiorg.b0.upaiyun.com/tmp/yasuko/yasuko.jpg!/format/webp");">
+            background-image: url({{ user.blog_cover }});">
 
         <div class="header-wrap"></div>
         <div class="home-info-container">
-            <a href="/"><h2>Let's face reality, loyalty to an ideal.</h2></a>
-            <h4>面对现实，忠于理想</h4>
+            <a href="/"><h2>{{ user.blog_title }}</h2></a>
+            <h4>{{ user.blog_description }}</h4>
         </div>
         <div class="arrow_down" data-offset="-45">
                <a href="javascript:;"></a>

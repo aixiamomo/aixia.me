@@ -11,8 +11,8 @@
 {#        无封面时显示默认图片#}
     <img src="/" class="hide">
     <header id="header" class="home-header blog-background banner-mask lazy"
-            data-url="https://luoleiorg.b0.upaiyun.com/tmp/yasuko/yasuko.jpg"
-            style="display: table; background-image: url(&quot;https://luoleiorg.b0.upaiyun.com/tmp/yasuko/yasuko.jpg!/format/webp&quot;);">
+            data-url="{{ user.blog_cover }}"
+            style="display: table; background-image: url({{ user.blog_cover }});">
     {% endif %}
 
         <div class="nav-header">
@@ -25,7 +25,7 @@
                 <h2 class="post-page-title ">
                 {{ post.title }}
             </h2>
-                <time class="post-page-time">{{ moment(post.create_date).format('LL') }}</time>
+                <time class="post-page-time">{{ moment(post.publish_date).format('LL') }}</time>
                 <span class="post-page-author">爱夏</span>
                 <span class="post-page-tags">
                     {% for tag in post.tags.all() %}
@@ -92,7 +92,7 @@
 
             <section class="author-detail">
                 <a href="javascript:;">爱夏</a>
-                 <p>自学Python，尝试Flask-Web开发，尝试写博客，现居上海</p>
+                 <p>{{ user.author_detail }}</p>
                 <div class="author-meta">
                     <span class="author-location">Shanghai「上海」</span>
                     <span class="author-link"><a href="{{ url_for('main.index') }}">aixia's blog</a></span>
@@ -123,14 +123,14 @@
             {% if x.cover != None %}
                 <a class="read-next-story  lazy" data-url="{{ x.cover }}"
                    style="display: flex; background-image: url({{ x.cover }} + '!/fw/750/format/webp');"
-                   href="{{ url_for('.post', id=x.id) }}">
+                   href="{{ url_for('.post', url_name=x.url_name) }}">
             {% else %}
-                <a class="read-next-story no-cover" href="{{ url_for('.post', id=x.id) }}">
+                <a class="read-next-story no-cover" href="{{ url_for('.post', url_name=x.url_name) }}">
             {% endif %}
             <section class="post">
                 <h2>{{ x.title }}</h2>
-                {% if post.scheme != None %}
-                <p>{{ x.scheme }}</p>
+                {% if post.summary != None %}
+                <p>{{ x.summary }}</p>
                 {% endif %}
             </section>
             </a>
@@ -142,14 +142,14 @@
             {% if x.cover != None %}
                 <a class="read-next-story  lazy" data-url="{{ x.cover }}"
                    style="display: flex; background-image: url({{ x.cover }} + '!/fw/750/format/webp');"
-                   href="{{ url_for('.post', id=x.id) }}">
+                   href="{{ url_for('.post', url_name=x.url_name) }}">
             {% else %}
-                <a class="read-next-story no-cover" href="{{ url_for('.post', id=x.id) }}">
+                <a class="read-next-story no-cover" href="{{ url_for('.post', url_name=x.url_name) }}">
             {% endif %}
             <section class="post">
                 <h2>{{ x.title }}</h2>
-                {% if post.scheme != None %}
-                <p>{{ x.scheme }}</p>
+                {% if post.summary != None %}
+                <p>{{ x.summary }}</p>
                 {% endif %}
             </section>
             </a>

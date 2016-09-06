@@ -4,10 +4,22 @@
 {% endblock %}
 {% block body %}
 
-    <header id="header" data-url="https://luoleiorg.b0.upaiyun.com/tmp/yasuko/yasuko.jpg"
-            class="home-header blog-background banner-mask lazy no cover"
-            style="display: table;
-            background-image: url("https://luoleiorg.b0.upaiyun.com/tmp/yasuko/yasuko.jpg!/format/webp");">
+    {% if tag.cover %}
+    <img src="{{ tag.cover }}!wechatsmall" class="wechat-only">
+    <header id="header" class="home-header blog-background banner-mask lazy no cover"
+            data-url="{{ tag.cover }}">
+    {% else %}
+{#        无封面时显示默认图片#}
+    <img src="/" class="hide">
+    <header id="header" class="home-header blog-background banner-mask lazy no cover"
+            data-url="{{ user.blog_cover }}"
+            style="display: table; background-image: url({{ user.blog_cover }});">
+    {% endif %}
+
+{#    <header id="header" data-url="https://luoleiorg.b0.upaiyun.com/tmp/yasuko/yasuko.jpg"#}
+{#            class="home-header blog-background banner-mask lazy no cover"#}
+{#            style="display: table;#}
+{#            background-image: url("https://luoleiorg.b0.upaiyun.com/tmp/yasuko/yasuko.jpg!/format/webp");">#}
 
         <div class="header-wrap"></div>
         <div class="home-info-container">

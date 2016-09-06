@@ -7,7 +7,7 @@
 {% for post in posts %}
 <article class="post-in-list {{post_class}}">
         <section class="post-excerpt">
-        <a href="{{ url_for('main.post', id=post.id) }}">
+        <a href="{{ url_for('main.post', url_name=post.url_name) }}">
             {% if post.cover %}
                 <p>
                 <img data-url="{{ post.cover }}" class="lazy" alt="cover" src="{{ post.cover }}" style="display: block;">
@@ -19,9 +19,9 @@
         </a>
     <div class="info-mask">
     <div class="mask-wrapper">
-    <h2 class="post-title"><a href="{{ url_for('main.post', id=post.id) }}">{{ post.title }}</a></h2>
+    <h2 class="post-title"><a href="{{ url_for('main.post', url_name=post.url_name) }}">{{ post.title }}</a></h2>
     <div class="post-meta">
-    <span class="post-time"><time datetime="{{ post.create_date }}">{{ moment(post.create_date).format('LL') }}</time></span>
+    <span class="post-time"><time datetime="{{ post.publish_date }}">{{ moment(post.publish_date).format('LL') }}</time></span>
     <span class="post-tags">
         {% for tag in post.tags.all() %}
             <a href="{{ url_for('.tag', url_name=tag.url_name) }}">{{ tag.name }}</a>
@@ -33,7 +33,7 @@
         </section>
         <div class="post-excerpt-mirror">
             <div class="post-excerpt-mirror-mask">
-            <a href="{{ url_for('main.post', id=post.id) }}">
+            <a href="{{ url_for('main.post', url_name=post.url_name) }}">
                 {#            响应式缩略图#}
             <p>
                 {% if post.cover %}
@@ -46,17 +46,17 @@
 
             <div class="excert-detail-container">
                 <div class="post-meta">
-                    <span class="post-time"><time datetime="{{ post.create_date }}">{{ moment(post.create_date).format('LL') }}</time></span>
-                    <h2 class="post-title"><a href="{{ url_for('main.post', id=post.id) }}">{{ post.title }}</a></h2>
-                    {% if post.scheme != None %}
-                        <p class="post-short-intro">{{ post.scheme }}</p>
+                    <span class="post-time"><time datetime="{{ post.publish_date }}">{{ moment(post.publish_date).format('LL') }}</time></span>
+                    <h2 class="post-title"><a href="{{ url_for('main.post', url_name=post.url_name) }}">{{ post.title }}</a></h2>
+                    {% if post.summary != None %}
+                        <p class="post-short-intro">{{ post.summary }}</p>
                     {% endif %}
                     <span class="post-tags">
                         {% for tag in post.tags %}
                             <a href="{{ url_for('.tag', url_name=tag.url_name) }}">{{ tag.name }}</a>
                         {% endfor %}
                     </span>
-                    <a href="{{ url_for('main.post', id=post.id) }}" class="btn-post-excerpt">阅读原文</a>
+                    <a href="{{ url_for('main.post', url_name=post.url_name) }}" class="btn-post-excerpt">阅读原文</a>
                 </div>
 
 
