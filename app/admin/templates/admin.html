@@ -12,22 +12,22 @@
     <link rel="publisher" href="https://plus.google.com/+Scoopthemes">
     <!-- for Twitter -->
     <meta name="twitter:card" content="photo">
-    <meta name="twitter:site" content="">
-    <meta name="twitter:title" content="">
-    <meta name="twitter:description" content="">
-    <meta name="twitter:image" content="">
-    <meta name="twitter:url" content="">
+    <meta name="twitter:site" content="aixia">
+    <meta name="twitter:title" content="爱夏">
+    <meta name="twitter:description" content="爱夏">
+    <meta name="twitter:image" content="爱夏">
+    <meta name="twitter:url" content="爱夏">
     <!-- for Facebook OpenGraph -->
-    <meta property="og:title" content=""/>
-    <meta property="og:type" content=""/>
-    <meta property="og:image" content=""/>
-    <meta property="og:url" content=""/>
-    <meta property="og:description" content=""/>
+    <meta property="og:title" content="爱夏"/>
+    <meta property="og:type" content="爱夏"/>
+    <meta property="og:image" content="爱夏"/>
+    <meta property="og:url" content="爱夏"/>
+    <meta property="og:description" content="爱夏"/>
 
     <!-- Canonical -->
     <link rel="canonical" href="">
 
-    <title>Sidebar Layout - Scoop Themes Template</title>
+    <title>爱夏 - Admin</title>
 
     <!--STYLES-->
     <link rel="stylesheet" href="{{ url_for('admin.static', filename='styles/dropzone.css') }}">
@@ -85,81 +85,114 @@
 
     <!-- Main Section -->
     <section class="main-section">
+
+
         <!-- Add Your Content Inside button, menuToggler -->
         {% block content %}
         <div class="content">
-
+            <div class="container">
+                {% for message in get_flashed_messages() %}
+                    <div class="alert alert-waring">
+                        <button type="button" class="close" data-dismiss="alert">&times;</button>
+                    {{ message }}
+                    </div>
+                {% endfor %}
+            </div>
+{#        flash消息#}
+            <form role="form" class="form" method="post" action="">
             <div class="input-group">
-                <span class="input-group-btn">
-                    <div class="btn btn-secondary btn-default sidebutton"
-                         type="button" id="menuToggler">
-                        <span class="fa fa-bars"></span>
-                    </div>
-                </span>
-                <input type="text" class="inputtitle" placeholder="Your Post Title" value="(Untitled)">
-                <span class="input-group-btn">
-	            <span class="input-group-btn">
-                <button class="btn btn-secondary btn-primary sidebutton"
-                        type="button">Publish</button>
-                </span>
-                </span>
-            </div>
+                    <span class="input-group-btn">
+                        <div class="btn btn-secondary btn-default sidebutton"
+                             type="button" id="menuToggler">
+                            <span class="fa fa-bars"></span>
+                        </div>
+                    </span>
+    {#                侧边栏收缩#}
 
-            <div class="editorwrap row">
+                    <input type="text" class="inputtitle" placeholder="文章标题" id='title' value="(Untitled)">
+                    <span class="input-group-btn">
+                    <span class="input-group-btn">
+                    <button class="btn btn-secondary btn-primary sidebutton"
+                            type="button">
+                        <input class="btn btn-default" id="submit" name="submit" type="submit" value="保存">
+                    </button>
+                    </span>
+                    </span>
+                </div>
+    {#        顶部块#}
+                <div class="form-group ">
+                    <label class="control-label" for="cover">封面图</label>
+                    <input class="form-control" id="cover" name="cover" type="text" value="">
+                </div>
+                <div class="form-group  required">
+                    <label class="control-label" for="url_name">Post URL</label>
+                    <input class="form-control" id="url_name" name="url_name" required="" type="text" value="">
+                </div>
+                <div class="checkbox">
+                    <label><input id="publish" name="publish" type="checkbox" value="y"> 发布</label>
+                </div>
+                <div class="form-group ">
+                    <label class="control-label" for="publish_date">发表日期</label>
+                    <input class="form-control" id="publish_date" name="publish_date" type="text" value="">
+                </div>
+    {#            中间块#}
+                <div>
+                    <h2>正文</h2>
+                </div>
+                <div class="editorwrap row">
 
-                <!-- Markdown Editor -->
-                <section class="entry-markdown col-sm-6 col-xs-12">
-                    <div id="scroll">
-                        <header class="floatingheader">
-                            <small>Markdown</small>
-                            <a class="markdown-help pull-right" data-toggle="modal" data-target="#myModal"><span
-                                    class="fa fa-question"></span></a>
-                        </header>
-                        <section class="entry-markdown-content">
-                            <textarea id="entry-markdown">
-                                {% block body %}
-### What about Images?
+                    <!-- Markdown Editor -->
+                    <section class="entry-markdown col-sm-6 col-xs-12">
+                        <div id="scroll">
+                            <header class="floatingheader">
+                                <small>Markdown</small>
+                                <a class="markdown-help pull-right" data-toggle="modal" data-target="#myModal"><span
+                                        class="fa fa-question"></span></a>
+                            </header>
+                            <section class="entry-markdown-content">
+                                <textarea id="entry-markdown">
+                                    {% block body %}
+    ### What about Images?
 
-![A placeholder for image]
+    ![A placeholder for image]
 
-Images work too! Already know the URL of the image you want to include in your article? Simply paste it in like this to make it show up:
+    Images work too! Already know the URL of the image you want to include in your article? Simply paste it in like this to make it show up:
 
-![A bowl of bananas]
+    ![A bowl of bananas]
 
-![The Ghost Logo](http://tryghost.org/ghost.png)
+    ![The Ghost Logo](http://tryghost.org/ghost.png)
 
-Not sure which image you want to use yet? That's ok too. Leave yourself a descriptive placeholder and keep writing. Come back later and drag and drop the image in to upload:
+    Not sure which image you want to use yet? That's ok too. Leave yourself a descriptive placeholder and keep writing. Come back later and drag and drop the image in to upload:
 
-![A bowl of bananas]
-
-
-
-Created With Love By Wisdom Oparaocha @BitNyeFe, www.coinfeeder.com
-                                    {% endblock %}
-</textarea>
-                        </section>
-                    </div>
-                </section>
-                <!-- Markdown Editor END-->
-
-
-                <!-- Markdown Preview -->
-                <section class="entry-preview active col-sm-6 hidden-xs">
-                    <div id="scrollh">
-                        <header class="floatingheader">
-                            <small class="pull-left">Preview</small>
-                            <small class="pull-right"><span class="entry-word-count js-entry-word-count">77 words</span>
-                            </small>
-                        </header>
-                        <section class="entry-preview-content">
-                            <div class="rendered-markdown"></div>
-                        </section>
-                    </div>
-                </section>
-                <!-- Markdown Preview END-->
-            </div>
+    ![A bowl of bananas]
 
 
+
+    Created With Love By Wisdom Oparaocha @BitNyeFe, www.coinfeeder.com
+                                        {% endblock %}
+    </textarea>
+                            </section>
+                        </div>
+                    </section>
+                    <!-- Markdown Editor END-->
+
+
+                    <!-- Markdown Preview -->
+                    <section class="entry-preview active col-sm-6 hidden-xs">
+                        <div id="scrollh">
+                            <header class="floatingheader">
+                                <small class="pull-left">Preview</small>
+                                <small class="pull-right"><span class="entry-word-count js-entry-word-count">77 words</span>
+                                </small>
+                            </header>
+                            <section class="entry-preview-content">
+                                <div class="rendered-markdown"></div>
+                            </section>
+                        </div>
+                    </section>
+                    <!-- Markdown Preview END-->
+                </div>
+            </form>
         </div>
         {% endblock %}
         <!-- /.content -->

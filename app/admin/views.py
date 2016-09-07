@@ -10,6 +10,7 @@ from flask_login import login_required, login_user, logout_user, current_user  #
 @admin.route('/')
 @login_required
 def index():
+    """后台首页"""
     return render_template('admin.html')
 
 
@@ -99,7 +100,7 @@ def editor(url_name):
     form.url_name.data = post.url_name
     form.publish_date.data = post.publish_date
     # form.tags.data = post.tags
-    return render_template('editor.html', form=form)
+    return render_template('editor.html', form=form, post=post)
 
 
 @login_required
@@ -112,3 +113,15 @@ def manage_posts():
     )
     posts = pagination.items
     return render_template('manage_posts.html', posts=posts, pagination=pagination)
+
+
+@login_required
+@admin.route('/manage/delete/post', methods=['GET', 'POST'])
+def delete_post():
+    """删除文章"""
+    post_name = request.args.get('url_name')
+    post = Post.query.filter_by(url_name=post_name).first_or_404()
+    db.session.delete(post)
+    db.session.commit()
+    flash(u'已成功删除文章')
+    return redirect(url_for('admin.manage_posts'))

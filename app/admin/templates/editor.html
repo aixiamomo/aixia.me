@@ -4,5 +4,36 @@
 {% block content %}
     <div class="content">
     {{ wtf.quick_form(form) }}
+    <br>
+                    <button class="btn btn-danger btn-sm" data-toggle="modal" data-target="#myModal">
+                        删除文章
+                    </button>
+                    <!-- 模态框（Modal） -->
+                    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                                        &times;
+                                    </button>
+                                    <h4 class="modal-title" id="myModalLabel">
+                                        确认删除文章 - {{ post.title }}？
+                                    </h4>
+                                </div>
+                                <div class="modal-body">
+                                    删除后不可恢复，您确认要删除吗？
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭
+                                    </button>
+                                    <button type="button" class="btn btn-primary" >
+                                        <a href="{{ url_for('admin.delete_post', url_name=post.url_name) }}" style="color:white">删除
+{#                                        <span class="label label-primary">删除</span>#}
+                                        </a>
+                                    </button>
+                                </div>
+                            </div><!-- /.modal-content -->
+                        </div>
+                    </div><!-- /.modal -->
     </div>
 {% endblock %}

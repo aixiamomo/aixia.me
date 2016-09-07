@@ -4,7 +4,17 @@
     500 - Internal Server Error
 {% endblock %}
 {% block body %}
-    <div>
-    <h1>Internal Server Error</h1>
-    </div>
+    <header id="header" data-url="{{ user.blog_cover }}"
+            class="home-header blog-background banner-mask lazy no cover"
+            style="display: table;
+            background-image: url({{ user.blog_cover }});">
+
+        <div class="header-wrap"></div>
+        <div class="home-info-container">
+            <a href="/"><h2>Internal Server Error</h2></a>
+        </div>
+        <div class="arrow_down" data-offset="-45">
+               <a href="javascript:;"></a>
+        </div>
+    </header>
 {% endblock %}
