@@ -41,7 +41,7 @@
 							{{ post.title }}
 						</td>
 						<td>
-							{{ post.publish_date }}
+							{{ moment(post.publish_date).format('L') }}
 						</td>
 						<td>
 							{{ post.publish }}

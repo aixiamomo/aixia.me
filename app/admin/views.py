@@ -61,7 +61,7 @@ def new_post():
     """新增文章"""
     form = EditorForm()
     if form.validate_on_submit():
-        if Post.query.filter_by(url_name=form.url_name):
+        if Post.query.filter_by(url_name=form.url_name.data).first():
             flash(u'url_name已存在')
             return render_template('new_post.html', form=form)
         post = Post(

@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-import datetime
+from datetime import datetime
 import bleach
 from . import db, login_manager
 
@@ -48,9 +48,9 @@ class Post(db.Model):
     publish = db.Column(db.Boolean, default=True, index=True)
     url_name = db.Column(db.String(64), index=True, unique=True)
 
-    create_date = db.Column(db.DateTime, default=datetime.date.today())
-    publish_date = db.Column(db.DateTime, default=datetime.date.today())
-    update_date = db.Column(db.DateTime, default=datetime.date.today())
+    create_date = db.Column(db.DateTime, default=datetime.utcnow)
+    publish_date = db.Column(db.DateTime, default=datetime.utcnow)
+    update_date = db.Column(db.DateTime, default=datetime.utcnow)
 
     tags = db.relationship('Tag',
                            secondary=belong_to,
