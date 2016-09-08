@@ -56,23 +56,26 @@ def setting():
 
 
 @login_required
-@admin.route('/editor', methods=['GET', 'POST'])
+@admin.route('/new_post', methods=['GET', 'POST'])
 def new_post():
     """新增文章"""
     form = EditorForm()
     if form.validate_on_submit():
+        if Post.query.filter_by(url_name=form.url_name):
+            flash(u'url_name已存在')
+            return render_template('new_post.html', form=form)
         post = Post(
                 title=form.title.data,
                 cover=form.cover.data,
                 body=form.body.data,
-                # summary=form.summary.data,
+                summary=form.summary.data,
                 publish=form.publish.data,
                 url_name=form.url_name.data,
                 publish_date=form.publish_date.data)
         db.session.add(post)
         flash(u'文章添加成功')
         return redirect(url_for('admin.editor', form=form, url_name=form.url_name.data))
-    return render_template('setting.html', form=form)
+    return render_template('new_post.html', form=form)
 
 
 @login_required
@@ -85,7 +88,7 @@ def editor(url_name):
         post.title = form.title.data
         post.cover = form.cover.data
         post.body = form.body.data
-        # post.summary = form.summary.data
+        post.summary = form.summary.data
         post.publish = form.publish.data
         post.url_name = form.url_name.data
         post.publish_date = form.publish_date.data
@@ -95,7 +98,7 @@ def editor(url_name):
     form.title.data = post.title
     form.cover.data = post.cover
     form.body.data = post.body
-    # form.summary.data = post.summary
+    form.summary.data = post.summary
     form.publish.data = post.publish
     form.url_name.data = post.url_name
     form.publish_date.data = post.publish_date
@@ -119,8 +122,8 @@ def manage_posts():
 @admin.route('/manage/delete/post', methods=['GET', 'POST'])
 def delete_post():
     """删除文章"""
-    post_name = request.args.get('url_name')
-    post = Post.query.filter_by(url_name=post_name).first_or_404()
+    url_name = request.args.get('url_name')
+    post = Post.query.filter_by(url_name=url_name).first_or_404()
     db.session.delete(post)
     db.session.commit()
     flash(u'已成功删除文章')

@@ -46,7 +46,7 @@ class Post(db.Model):
     body_html = db.Column(db.Text)
     summary = db.Column(db.Text)
     publish = db.Column(db.Boolean, default=True, index=True)
-    url_name = db.Column(db.String(64), index=True)
+    url_name = db.Column(db.String(64), index=True, unique=True)
 
     create_date = db.Column(db.DateTime, default=datetime.date.today())
     publish_date = db.Column(db.DateTime, default=datetime.date.today())
@@ -82,22 +82,22 @@ class Post(db.Model):
             markdown(value, output_format='html'),
             tags=allowed_tags, strip=True))  # 真实的转换过程
 
-    @staticmethod
-    def scheme_html(target, value, oldvalue, initiator):
-        allowed_tags = []
-        target.summary = bleach.linkify(bleach.clean(value, tags=allowed_tags, strip=True))[:42] + '...'
+    # @staticmethod
+    # def scheme_html(target, value, oldvalue, initiator):
+    #     allowed_tags = []
+    #     target.summary = bleach.linkify(bleach.clean(value, tags=allowed_tags, strip=True))[:42] + '...'
 
 
 db.event.listen(Post.body, 'set', Post.on_changed_body)
-db.event.listen(Post.body_html, 'set', Post.scheme_html)
+# db.event.listen(Post.body_html, 'set', Post.scheme_html)
 
 
 class Tag(db.Model):
     __tablename__ = 'tags'
     id = db.Column(db.Integer, primary_key=True)
     cover = db.Column(db.String(64), default='https://ooo.0o0.ooo/2016/09/07/57d0372d2c674.jpg')
-    name = db.Column(db.String(64))
-    url_name = db.Column(db.String(64), index=True)
+    name = db.Column(db.String(64), unique=True)
+    url_name = db.Column(db.String(64), index=True, unique=True)
 
 
 @login_manager.user_loader

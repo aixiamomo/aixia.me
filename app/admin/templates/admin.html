@@ -86,9 +86,6 @@
     <!-- Main Section -->
     <section class="main-section">
 
-
-        <!-- Add Your Content Inside button, menuToggler -->
-        {% block content %}
         <div class="content">
             <div class="container">
                 {% for message in get_flashed_messages() %}
@@ -99,103 +96,93 @@
                 {% endfor %}
             </div>
 {#        flash消息#}
-            <form role="form" class="form" method="post" action="">
-            <div class="input-group">
-                    <span class="input-group-btn">
-                        <div class="btn btn-secondary btn-default sidebutton"
-                             type="button" id="menuToggler">
-                            <span class="fa fa-bars"></span>
-                        </div>
-                    </span>
+        <!-- Add Your Content Inside button, menuToggler -->
+
+        {% block content %}
+{#            <form role="form" class="form" method="post">#}
+{#            <div class="input-group">#}
+{#                    <span class="input-group-btn">#}
+{#                        <div class="btn btn-secondary btn-default sidebutton"#}
+{#                             type="button" id="menuToggler">#}
+{#                            <span class="fa fa-bars"></span>#}
+{#                        </div>#}
+{#                    </span>#}
     {#                侧边栏收缩#}
-
-                    <input type="text" class="inputtitle" placeholder="文章标题" id='title' value="(Untitled)">
-                    <span class="input-group-btn">
-                    <span class="input-group-btn">
-                    <button class="btn btn-secondary btn-primary sidebutton"
-                            type="button">
-                        <input class="btn btn-default" id="submit" name="submit" type="submit" value="保存">
-                    </button>
-                    </span>
-                    </span>
-                </div>
+{##}
+{#                    <input type="text" class="inputtitle" placeholder="文章标题" id='title' value="(Untitled)">#}
+{#                    <span class="input-group-btn">#}
+{#                    <span class="input-group-btn">#}
+{#                    <button class="btn btn-secondary btn-primary sidebutton"#}
+{#                            type="button">#}
+{#                        <input class="btn btn-default" id="submit" name="submit" type="submit" value="保存">#}
+{#                    </button>#}
+{#                    </span>#}
+{#                    </span>#}
+{#                </div>#}
     {#        顶部块#}
-                <div class="form-group ">
-                    <label class="control-label" for="cover">封面图</label>
-                    <input class="form-control" id="cover" name="cover" type="text" value="">
-                </div>
-                <div class="form-group  required">
-                    <label class="control-label" for="url_name">Post URL</label>
-                    <input class="form-control" id="url_name" name="url_name" required="" type="text" value="">
-                </div>
-                <div class="checkbox">
-                    <label><input id="publish" name="publish" type="checkbox" value="y"> 发布</label>
-                </div>
-                <div class="form-group ">
-                    <label class="control-label" for="publish_date">发表日期</label>
-                    <input class="form-control" id="publish_date" name="publish_date" type="text" value="">
-                </div>
+{#                <div class="form-group ">#}
+{#                    <label class="control-label" for="cover">封面图</label>#}
+{#                    <input class="form-control" id="cover" name="cover" type="text" value="">#}
+{#                </div>#}
+{#                <div class="form-group  required">#}
+{#                    <label class="control-label" for="url_name">Post URL</label>#}
+{#                    <input class="form-control" id="url_name" name="url_name" required="" type="text" value="">#}
+{#                </div>#}
+{#                <div class="checkbox">#}
+{#                    <label><input id="publish" name="publish" type="checkbox" value="y"> 发布</label>#}
+{#                </div>#}
+{#                <div class="form-group ">#}
+{#                    <label class="control-label" for="publish_date">发表日期</label>#}
+{#                    <input class="form-control" id="publish_date" name="publish_date" type="text" value="">#}
+{#                </div>#}
     {#            中间块#}
-                <div>
-                    <h2>正文</h2>
-                </div>
-                <div class="editorwrap row">
-
-                    <!-- Markdown Editor -->
-                    <section class="entry-markdown col-sm-6 col-xs-12">
-                        <div id="scroll">
-                            <header class="floatingheader">
-                                <small>Markdown</small>
-                                <a class="markdown-help pull-right" data-toggle="modal" data-target="#myModal"><span
-                                        class="fa fa-question"></span></a>
-                            </header>
-                            <section class="entry-markdown-content">
-                                <textarea id="entry-markdown">
-                                    {% block body %}
-    ### What about Images?
-
-    ![A placeholder for image]
-
-    Images work too! Already know the URL of the image you want to include in your article? Simply paste it in like this to make it show up:
-
-    ![A bowl of bananas]
-
-    ![The Ghost Logo](http://tryghost.org/ghost.png)
-
-    Not sure which image you want to use yet? That's ok too. Leave yourself a descriptive placeholder and keep writing. Come back later and drag and drop the image in to upload:
-
-    ![A bowl of bananas]
-
-
-
-    Created With Love By Wisdom Oparaocha @BitNyeFe, www.coinfeeder.com
-                                        {% endblock %}
-    </textarea>
-                            </section>
-                        </div>
-                    </section>
-                    <!-- Markdown Editor END-->
-
-
-                    <!-- Markdown Preview -->
-                    <section class="entry-preview active col-sm-6 hidden-xs">
-                        <div id="scrollh">
-                            <header class="floatingheader">
-                                <small class="pull-left">Preview</small>
-                                <small class="pull-right"><span class="entry-word-count js-entry-word-count">77 words</span>
-                                </small>
-                            </header>
-                            <section class="entry-preview-content">
-                                <div class="rendered-markdown"></div>
-                            </section>
-                        </div>
-                    </section>
-                    <!-- Markdown Preview END-->
-                </div>
-            </form>
-        </div>
+{#                <div>#}
+{#                    <h2>正文</h2>#}
+{#                </div>#}
+{#                <div class="editorwrap row">#}
+{#                    <!-- Markdown Editor -->#}
+{#                    <section class="entry-markdown col-sm-6 col-xs-12">#}
+{#                        <div id="scroll">#}
+{#                            <header class="floatingheader">#}
+{#                                <small>Markdown</small>#}
+{#                                <a class="markdown-help pull-right" data-toggle="modal" data-target="#myModal">#}
+{#                                    <span class="fa fa-question"></span>#}
+{#                                </a>#}
+{#                            </header>#}
+{#                            <section class="entry-markdown-content">#}
+{#                                <textarea id="entry-markdown" class="form-control" name="body" required="">#}
+{#                                <textarea class="form-control" id="body" name="body" required="">zxczczxc阿斯顿自行车在出租车</textarea>        #}
+{##}
+{#                                </textarea>#}
+{#                            </section>#}
+{#                        </div>#}
+{#                    </section>#}
+{#                    <!-- Markdown Editor END-->#}
+{##}
+{##}
+{#                    <!-- Markdown Preview -->#}
+{#                    <section class="entry-preview active col-sm-6 hidden-xs">#}
+{#                        <div id="scrollh">#}
+{#                            <header class="floatingheader">#}
+{#                                <small class="pull-left">Preview</small>#}
+{#                                <small class="pull-right"><span class="entry-word-count js-entry-word-count">77 words</span>#}
+{#                                </small>#}
+{#                            </header>#}
+{#                            <section class="entry-preview-content">#}
+{#                                <div class="rendered-markdown"></div>#}
+{#                            </section>#}
+{#                        </div>#}
+{#                    </section>#}
+{#                    <!-- Markdown Preview END-->#}
+{#                </div>#}
+{#                <div>#}
+{#                    <p><input type="submit" value="保存"></p>#}
+{#                </div>#}
+{#            </form>#}
         {% endblock %}
         <!-- /.content -->
+        </div>
+
     </section>
     <!-- /.main-section -->
 
@@ -226,6 +213,8 @@
         appMaster.anotherFunction();
     });
 </script>
+
+{{ pagedown.include_pagedown() }}
 
 
 <div id="myModal" class="modal fade">

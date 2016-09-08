@@ -9,6 +9,7 @@ from flask_pagedown.fields import PageDownField
 class LoginForm(Form):  # 用户登录表单
     email = StringField('Email address', validators=[DataRequired(), Length(1, 64), Email()])
     password = PasswordField('Password', validators=[DataRequired()])
+    submit = SubmitField(u'提交')
 
 
 class PostForm(Form):
@@ -32,7 +33,7 @@ class EditorForm(Form):
     cover = StringField(u'封面图')
     url_name = StringField(u'Post URL', validators=[DataRequired()])
     body = TextAreaField(u'正文', validators=[DataRequired()])
-    # summary = TextAreaField(u'文章摘要', validators=[DataRequired()])
+    summary = TextAreaField(u'文章摘要')
     publish = BooleanField(u'发布')
     publish_date = DateField(u'发表日期')
     # tags = SelectMultipleField(u'标签')
