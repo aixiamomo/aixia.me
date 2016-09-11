@@ -13,7 +13,7 @@ def login():
     if form.validate_on_submit():
         user = User.query.filter_by(email=form.email.data).first()
         if user is not None and user.verify_password(form.password.data):
-            login_user(user, remember=True)  # True，在cookie中写入长期有效的cookie
+            login_user(user, True)  # True，在cookie中写入长期有效的cookie
             return redirect(request.args.get('next') or url_for('admin.index'))  # 后台默认页
         flash('Invalid username or password.')
     return render_template('login.html', form=form)
