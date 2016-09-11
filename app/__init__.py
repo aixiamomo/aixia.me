@@ -25,8 +25,8 @@ def create_app():
     moment.init_app(app)
     pagedown.init_app(app)
 
-    from .admin import admin as auth_blueprint
-    app.register_blueprint(auth_blueprint, url_prefix='/admin')
+    from .dashboard import admin as admin_blueprint
+    app.register_blueprint(admin_blueprint, url_prefix='/admin')
 
     from .main import main as main_blueprint
     app.register_blueprint(main_blueprint)
