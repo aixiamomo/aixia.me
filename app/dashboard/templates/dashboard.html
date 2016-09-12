@@ -75,21 +75,5 @@
 {% block scripts %}
 {{ super() }}
 {{ pagedown.include_pagedown() }}
-    <script>
-        $(function(){
-          var $editor = $('#editor');
-          var $preview = $('#preview');
-
-          $editor.markdownEditor({
-            onInsertedList: function(){ console.log("inserted list"); },
-            onInsertedTable: function(){ console.log("inserted table"); },
-            onInsertedCodeblock: function(){ console.log("inserted codeblock"); }
-          }).focus();
-
-         t= setInterval(function(){
-            $preview.html(marked($editor[0].value));
-          }, 1000);
-        });
-    </script>
 
 {% endblock %}
