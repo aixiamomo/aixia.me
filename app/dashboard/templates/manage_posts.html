@@ -1,0 +1,72 @@
+{% extends "dashboard.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+{% import "_macros.html" as macros %}
+
+{% block content %}
+    <div class="content">
+    <h4><strong>管理博文</strong></h4>
+        <hr>
+    <p><span class="glyphicon glyphicon-file"></span>博文总数：<span class="badge">{{ pagination.query.count() }}</span></p>
+    <table class="table table-hover">
+				<thead>
+					<tr>
+						<th>
+							编号
+						</th>
+						<th>
+							标题
+						</th>
+						<th>
+							发表时间
+						</th>
+						<th>
+							状态
+						</th>
+                        <th>
+                            编辑
+                        </th>
+                        <th>
+                            预览
+                        </th>
+					</tr>
+				</thead>
+{#        表头#}
+				<tbody>
+                    {% for post in posts %}
+					<tr>
+						<td>
+							{{ post.id }}
+						</td>
+						<td>
+							{{ post.title }}
+						</td>
+						<td>
+							{{ moment(post.publish_date).format('L') }}
+						</td>
+						<td>
+							{{ post.publish }}
+						</td>
+                        <td>
+                            <a href="{{ url_for('admin.editor', url_name=post.url_name) }}">
+                                <span class="glyphicon glyphicon-pencil" title="编辑博文"></span>
+                            </a>
+                        </td>
+                        <td>
+                            <a href="{{ url_for('main.post', url_name=post.url_name) }}" target="_blank">
+                                <button type="button" class="btn btn-sm btn-info" >预览</button>
+                            </a>
+                        </td>
+					</tr>
+                    {% endfor %}
+				</tbody>
+{#        行#}
+    </table>
+
+
+
+    <div class="pagination">
+        {{ macros.pagination_widget(pagination, 'admin.manage_posts') }}
+    </div>
+
+    </div>
+{% endblock %}

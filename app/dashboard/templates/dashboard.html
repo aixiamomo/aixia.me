@@ -2,6 +2,31 @@
 
 {% block title %}Aixia-admin{% endblock %}
 
+{% block head %}
+    {{ super() }}
+    <script src="{{ url_for('admin.static', filename='md_editor/dist/jquery.js') }}"></script>
+    <script src="{{ url_for('admin.static', filename='md_editor/dist/marked.min.js') }}"></script>
+    <script src="{{ url_for('admin.static', filename='md_editor/dist/jquery.textarea-markdown-editor.js') }}"></script>
+
+    <script>
+        $(function(){
+          var $editor = $('#editor');
+          var $preview = $('#preview');
+
+          $editor.markdownEditor({
+            onInsertedList: function(){ console.log("inserted list"); },
+            onInsertedTable: function(){ console.log("inserted table"); },
+            onInsertedCodeblock: function(){ console.log("inserted codeblock"); }
+          }).focus();
+
+         t= setInterval(function(){
+            $preview.html(marked($editor[0].value));
+          }, 1000);
+        });
+    </script>
+{% endblock %}
+
+
 {% block navbar %}
     <div class="navbar navbar-inverse" role="navigation">
         <div class="container">
@@ -16,9 +41,9 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li><a href="/admin">Home</a></li>
-                    <li><a href="/admin">Home</a></li>
-                    <li><a href="/admin">Home</a></li>
+                    <li><a href="/admin/settings">设置</a></li>
+                    <li><a href="/admin/new_post">新增文章</a></li>
+                    <li><a href="/admin/manage">管理文章</a></li>
                     <li><a href="/admin">Home</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
@@ -45,4 +70,11 @@
             </div>
         {% endblock %}
     </div>
+{% endblock %}
+
+{% block scripts %}
+{{ super() }}
+{{ pagedown.include_pagedown() }}
+
+
 {% endblock %}

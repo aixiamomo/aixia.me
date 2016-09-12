@@ -1,0 +1,8 @@
+{% extends "dashboard.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+
+{% block page_content %}
+    <div class="content">
+        {{ wtf.quick_form(form) }}
+    </div>
+{% endblock %}

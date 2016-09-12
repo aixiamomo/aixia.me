@@ -1,0 +1,16 @@
+{% extends "dashboard.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+
+{% block page_content %}
+    <div class="content">
+        {{ wtf.quick_form(form) }}
+        {{ pagedown.include_pagedown() }}
+    </div>
+
+    <div class="col-lg-6">
+        <textarea rows="30" class="form-control" id="editor"></textarea>
+    </div>
+    <div class="col-lg-6">
+        <div id="preview" class="well"></div>
+    </div>
+{% endblock %}
