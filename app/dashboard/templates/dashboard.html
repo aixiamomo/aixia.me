@@ -1,7 +1,14 @@
 {% extends "bootstrap/base.html" %}
 
 {% block title %}Aixia-admin{% endblock %}
-
+{% block styles %}
+    {{ super() }}
+    <link rel="shortcut icon" href="{{ url_for('static', filename='images/favicon.png') }}">
+    <link href="{{ url_for('static', filename='images/apple-touch-icon-57') }}" rel="apple-touch-icon" />
+    <link href="{{ url_for('static', filename='images/apple-touch-icon-72') }}" rel="apple-touch-icon" sizes="72x72" />
+    <link href="{{ url_for('static', filename='images/apple-touch-icon-114') }}" rel="apple-touch-icon" sizes="114x114" />
+    <link href="{{ url_for('static', filename='images/apple-touch-icon-144') }}" rel="apple-touch-icon" sizes="144x144" />
+{% endblock %}
 
 {% block navbar %}
     <div class="navbar navbar-inverse" role="navigation">

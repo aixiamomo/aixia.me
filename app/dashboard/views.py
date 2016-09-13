@@ -63,6 +63,7 @@ def new_post():
         if Post.query.filter_by(url_name=form.url_name.data).first():
             flash(u'url_name已存在')
             return render_template('new_post.html', form=form)
+        tag_temp = str_to_tag(form)
         post = Post(
                 title=form.title.data,
                 cover=form.cover.data,
@@ -70,7 +71,8 @@ def new_post():
                 summary=form.summary.data,
                 publish=form.publish.data,
                 url_name=form.url_name.data,
-                publish_date=form.publish_date.data)
+                publish_date=form.publish_date.data,
+                tags=tag_temp)
         db.session.add(post)
         flash(u'文章添加成功')
         return redirect(url_for('admin.editor', form=form, url_name=form.url_name.data))
@@ -103,7 +105,9 @@ def editor(url_name):
         post.publish = form.publish.data
         post.url_name = form.url_name.data
         post.publish_date = form.publish_date.data
-        # post.tags = form.tags.data
+
+        tag_temp = str_to_tag(form)
+        post.tags = tag_temp
         flash(u'文章状态已更新')
         return redirect(url_for('admin.editor', url_name=post.url_name))
     form.title.data = post.title
@@ -113,7 +117,11 @@ def editor(url_name):
     form.publish.data = post.publish
     form.url_name.data = post.url_name
     form.publish_date.data = post.publish_date
-    # form.tags.data = post.tags
+    tag_temp = ''
+    for tag in post.tags:
+        tag = tag.name + ' '
+        tag_temp += tag
+    form.tags.data = tag_temp
     return render_template('editor.html', form=form, post=post)
 
 
@@ -190,4 +198,17 @@ def delete_tag():
     return redirect(url_for('admin.manage_tags'))
 
 
+def str_to_tag(form):
+    """标签字符串与tag对象的转换"""
+    tag_temp = []
+    tag_list = form.tags.data.split()  # 默认空格分割
+    for tag_name in tag_list:
+        tag = Tag.query.filter_by(name=tag_name).first()
+        if tag is None:  # 数据库不存在标签，以tag_name生成一个
+            tag = Tag(name=tag_name,
+                      url_name=tag_name)
+            db.session.add(tag)
+            db.session.commit()
+        tag_temp.append(Tag.query.filter_by(name=tag_name).first())  # 返回一个列表，包含所有关联的Tag对象
+    return tag_temp
 

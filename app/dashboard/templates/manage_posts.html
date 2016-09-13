@@ -2,6 +2,11 @@
 {% import "bootstrap/wtf.html" as wtf %}
 {% import "_macros.html" as macros %}
 
+{#{% block head %}#}
+{#    {{ super() }}#}
+{#    <script src="//code.jquery.com/jquery-1.11.2.min.js"></script>#}
+{#{% endblock %}#}
+
 {% block page_content %}
     <div class="col-lg-8">
     <div class="content">
@@ -71,6 +76,12 @@
 
     </div>
     </div>
+{% endblock %}
+
+{% block scripts %}
+    <script src="{{bootstrap_find_resource('jquery.js', cdn='jquery')}}"></script>
+    <script src="{{bootstrap_find_resource('js/bootstrap.js', cdn='bootstrap')}}"></script>
+    {{ moment.include_moment() }}
 {% endblock %}
 
 

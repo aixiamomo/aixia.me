@@ -36,7 +36,7 @@ class EditorForm(Form):
     summary = TextAreaField(u'文章摘要')
     publish = BooleanField(u'发布')
     publish_date = DateField(u'发表日期')
-    # tags = SelectMultipleField(u'标签')
+    tags = StringField(u'标签')
     submit = SubmitField(u'保存')
 
 
