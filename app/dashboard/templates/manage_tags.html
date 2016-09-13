@@ -5,9 +5,9 @@
 {% block page_content %}
     <div class="col-lg-8">
     <div class="content">
-    <h4><strong>管理博文</strong></h4>
+    <h4><strong>管理标签</strong></h4>
         <hr>
-    <p><span class="glyphicon glyphicon-file"></span>博文总数：<span class="badge">{{ pagination.query.count() }}</span></p>
+    <p><span class="glyphicon glyphicon-file"></span>标签总数：<span class="badge">{{ pagination.query.count() }}</span></p>
     <table class="table table-hover">
 				<thead>
 					<tr>
@@ -15,14 +15,11 @@
 							编号
 						</th>
 						<th>
-							标题
+							名称
 						</th>
-						<th>
-							发表时间
-						</th>
-						<th>
-							状态
-						</th>
+                        <th>
+                            URL
+                        </th>
                         <th>
                             编辑
                         </th>
@@ -33,27 +30,25 @@
 				</thead>
 {#        表头#}
 				<tbody>
-                    {% for post in posts %}
+                    {% for tag in tags %}
 					<tr>
 						<td>
-							{{ post.id }}
+							{{ tag.id }}
 						</td>
 						<td>
-							{{ post.title }}
-						</td>
-						<td>
-							{{ moment(post.publish_date).format('L') }}
-						</td>
-						<td>
-							{{ post.publish }}
+							{{ tag.name }}
 						</td>
                         <td>
-                            <a href="{{ url_for('admin.editor', url_name=post.url_name) }}">
-                                <span class="glyphicon glyphicon-pencil" title="编辑博文"></span>
+                            {{ tag.url_name }}
+                        </td>
+
+                        <td>
+                            <a href="{{ url_for('admin.modify_tag', url_name=tag.url_name) }}">
+                                <span class="glyphicon glyphicon-pencil" title="修改"></span>
                             </a>
                         </td>
                         <td>
-                            <a href="{{ url_for('main.post', url_name=post.url_name) }}" target="_blank">
+                            <a href="{{ url_for('main.tag', url_name=tag.url_name) }}" target="_blank">
                                 <button type="button" class="btn btn-sm btn-info" >预览</button>
                             </a>
                         </td>
@@ -66,11 +61,9 @@
 
 
     <div class="pagination">
-        {{ macros.pagination_widget(pagination, 'admin.manage_posts') }}
+        {{ macros.pagination_widget(pagination, 'admin.manage_tags') }}
     </div>
 
     </div>
     </div>
 {% endblock %}
-
-

@@ -1,10 +1,9 @@
-{% extends "new_post.html" %}
-
+{% extends "new_tag.html" %}
 {% block page_content %}
 {{ super() }}
     <br>
     <button class="btn btn-danger btn-sm" data-toggle="modal" data-target="#myModal">
-        删除文章
+        删除标签
     </button>
     <!-- 模态框（Modal） -->
     <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -15,7 +14,7 @@
                         &times;
                     </button>
                     <h4 class="modal-title" id="myModalLabel">
-                        确认删除文章 - {{ post.title }}？
+                        确认删除标签 - {{ tag.name }}？
                     </h4>
                 </div>
                 <div class="modal-body">
@@ -25,7 +24,7 @@
                     <button type="button" class="btn btn-default" data-dismiss="modal">关闭
                     </button>
                     <button type="button" class="btn btn-primary" >
-                        <a href="{{ url_for('admin.delete_post', url_name=post.url_name) }}" style="color:white">删除
+                        <a href="{{ url_for('admin.delete_tag', url_name=tag.url_name) }}" style="color:white">删除
 {#                                        <span class="label label-primary">删除</span>#}
                         </a>
                     </button>

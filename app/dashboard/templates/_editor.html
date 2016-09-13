@@ -1,0 +1,49 @@
+<div class="content">
+
+<form action="" method="post" class="form" role="form">
+    {{ form.csrf_token }}
+
+    <div class="form-group  required">
+        <label class="control-label" for="title">标题</label>
+        {{ form.title(class="form-control",_id="title") }}
+    </div>
+    <div class="form-group ">
+        <label class="control-label" for="cover">封面图</label>
+        {{ form.cover(class="form-control",_id="cover") }}
+    </div>
+    <div class="form-group  required">
+        <label class="control-label" for="url_name">Post URL</label>
+        {{ form.url_name(class="form-control",_id="url_name") }}
+    </div>
+
+    <div class="form-group ">
+        <label class="control-label" for="summary">文章摘要</label>
+        {{ form.summary(class="form-control",_id="summary") }}
+    </div>
+
+    <div class="form-group ">
+        <label class="control-label" for="publish_date">发表日期</label>
+        {{ form.publish_date(class="form-control",_id="publish_date") }}
+    </div>
+    <div class="checkbox">
+        <label>
+        {{ form.publish(_id="publish",type="checkbox") }}发布
+        </label>
+    </div>
+    <div class="form-group ">
+        <input class="btn btn-default" id="submit" name="submit" type="submit" value="保存">
+    </div>
+
+    <div class="form-group  required col-lg-6" >
+        <label class="control-label" for="body">正文</label>
+        {{ form.editor(_id="editor", class="form-control", rows="30") }}
+    </div>
+
+    <div class="col-lg-6">
+        <label class="control-label" for="preview">预览</label>
+        <div id="preview" class="well"></div>
+    </div>
+
+
+</form>
+</div>

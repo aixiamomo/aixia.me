@@ -32,9 +32,17 @@ class EditorForm(Form):
     title = StringField(u'标题', validators=[DataRequired()])
     cover = StringField(u'封面图')
     url_name = StringField(u'Post URL', validators=[DataRequired()])
-    body = PageDownField(u'正文', validators=[DataRequired()])
+    editor = TextAreaField(u'正文', validators=[DataRequired()])
     summary = TextAreaField(u'文章摘要')
     publish = BooleanField(u'发布')
     publish_date = DateField(u'发表日期')
     # tags = SelectMultipleField(u'标签')
     submit = SubmitField(u'保存')
+
+
+class TagForm(Form):
+    cover = StringField(u'封面图')
+    name = StringField(u'标签名')
+    url_name = StringField(u'Tag URL')
+    submit = SubmitField(u'保存')
+

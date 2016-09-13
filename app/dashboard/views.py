@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from . import admin
-from .forms import LoginForm, SettingForm, EditorForm
+from .forms import LoginForm, SettingForm, EditorForm, TagForm
 from ..models import User, Post, Tag
 from app import db
 from flask import render_template, flash, redirect, url_for, request, current_app
@@ -66,7 +66,7 @@ def new_post():
         post = Post(
                 title=form.title.data,
                 cover=form.cover.data,
-                body=form.body.data,
+                body=form.editor.data,
                 summary=form.summary.data,
                 publish=form.publish.data,
                 url_name=form.url_name.data,
@@ -98,7 +98,7 @@ def editor(url_name):
     if form.validate_on_submit():
         post.title = form.title.data
         post.cover = form.cover.data
-        post.body = form.body.data
+        post.body = form.editor.data
         post.summary = form.summary.data
         post.publish = form.publish.data
         post.url_name = form.url_name.data
@@ -108,7 +108,7 @@ def editor(url_name):
         return redirect(url_for('admin.editor', url_name=post.url_name))
     form.title.data = post.title
     form.cover.data = post.cover
-    form.body.data = post.body
+    form.editor.data = post.body
     form.summary.data = post.summary
     form.publish.data = post.publish
     form.url_name.data = post.url_name
@@ -127,4 +127,67 @@ def delete_post():
     db.session.commit()
     flash(u'已成功删除文章')
     return redirect(url_for('admin.manage_posts'))
+
+
+@login_required
+@admin.route('/tags', methods=['GET', 'POST'])
+def manage_tags():
+    """管理标签"""
+    page = request.args.get('page', 1, type=int)
+    pagination = Tag.query.paginate(
+        page, per_page=8, error_out=False
+    )
+    tags = pagination.items
+    return render_template('manage_tags.html', tags=tags, pagination=pagination)
+
+
+@login_required
+@admin.route('/tags/<url_name>', methods=['GET', 'POST'])
+def modify_tag(url_name):
+    """修改标签"""
+    tag = Tag.query.filter_by(url_name=url_name).first_or_404()
+    form = TagForm()
+    if form.validate_on_submit():
+        tag.name = form.name.data
+        tag.url_name = form.url_name.data
+        tag.cover = form.cover.data
+        flash(u'标签信息已更新')
+        return redirect(url_for('admin.modify_tag', url_name=tag.url_name))
+    form.name.data = tag.name
+    form.url_name.data = tag.url_name
+    form.cover.data = tag.cover
+    return render_template('modify_tag.html', form=form, tag=tag)
+
+
+@login_required
+@admin.route('/new_tag', methods=['GET', 'POST'])
+def new_tag():
+    """新增标签"""
+    form = TagForm()
+    if form.validate_on_submit():
+        if Tag.query.filter_by(url_name=form.url_name.data).first():
+            flash(u'Tag_URL已存在')
+            return render_template('new_tag.html', form=form)
+        tag = Tag(
+                name=form.name.data,
+                cover=form.cover.data,
+                url_name=form.url_name.data,)
+        db.session.add(tag)
+        flash(u'标签添加成功')
+        return redirect(url_for('admin.new_tag'))
+    return render_template('new_tag.html', form=form)
+
+
+@login_required
+@admin.route('/tags/delete', methods=['GET', 'POST'])
+def delete_tag():
+    """删除标签"""
+    url_name = request.args.get('url_name')
+    tag = Tag.query.filter_by(url_name=url_name).first_or_404()
+    db.session.delete(tag)
+    db.session.commit()
+    flash(u'已成功删除标签')
+    return redirect(url_for('admin.manage_tags'))
+
+
 

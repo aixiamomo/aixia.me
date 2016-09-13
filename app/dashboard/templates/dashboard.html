@@ -2,56 +2,34 @@
 
 {% block title %}Aixia-admin{% endblock %}
 
-{% block head %}
-    {{ super() }}
-    <script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
-    <script src="{{ url_for('admin.static', filename='md_editor/dist/marked.min.js') }}"></script>
-    <script src="{{ url_for('admin.static', filename='md_editor/dist/jquery.textarea-markdown-editor.js') }}"></script>
-
-    <script>
-        $(function(){
-          var $editor = $('#editor');
-          var $preview = $('#preview');
-
-          $editor.markdownEditor({
-            onInsertedList: function(){ console.log("inserted list"); },
-            onInsertedTable: function(){ console.log("inserted table"); },
-            onInsertedCodeblock: function(){ console.log("inserted codeblock"); }
-          }).focus();
-
-         t= setInterval(function(){
-            $preview.html(marked($editor[0].value));
-          }, 1000);
-        });
-    </script>
-{% endblock %}
-
 
 {% block navbar %}
     <div class="navbar navbar-inverse" role="navigation">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a href="/admin" class="navbar-brand">Aixia</a>
-            </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li><a href="/admin/settings">设置</a></li>
-                    <li><a href="/admin/new_post">新增文章</a></li>
-                    <li><a href="/admin/manage">管理文章</a></li>
-                    <li><a href="/admin">Home</a></li>
-                </ul>
-                <ul class="nav navbar-nav navbar-right">
-                    <li><a href="{{ url_for('admin.logout') }}">Sign Out</a></li>
-                </ul>
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a href="/admin" class="navbar-brand">Aixia</a>
+                </div>
+                <div class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav">
+                        <li><a href="/admin/new_post">新增文章</a></li>
+                        <li><a href="/admin/manage">管理文章</a></li>
+                        <li><a href="/admin/new_tag">添加标签</a></li>
+                        <li><a href="/admin/tags">管理标签</a></li>
+                        <li><a href="/admin/settings">设置</a></li>
+                        <li><a href="https://sm.ms/" target="_blank">SM.MS</a></li>
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a href="{{ url_for('admin.logout') }}">Sign Out</a></li>
+                    </ul>
+                </div>
             </div>
         </div>
-    </div>
 {% endblock %}
 
 
@@ -65,15 +43,31 @@
         {% endfor %}
 
         {% block page_content %}
+            <h2>简是简单了点</h2>
+            <h2>丑是丑陋了点</h2>
+            <h2>_(:3」∠)_</h2>
             <div class="page-header">
-                <h1>Hello, 爱夏</h1>
+            <div class="accordion" id="accordion-487471">
+
+            <div class="accordion-group">
+            <div class="accordion-heading"><h2><a class="accordion-toggle collapsed" contenteditable="true"
+                                              data-parent="#accordion-487471" data-toggle="collapse"
+                                              href="#accordion-element-202923">但是...</a></h2></div>
+
+            <div class="accordion-body collapse" id="accordion-element-202923" style="height: 0px;">
+            <div class="accordion-inner" contenteditable="true">
+            <img src="https://ooo.0o0.ooo/2016/09/13/57d7bce1645dd.jpg" alt="u=4129955145,409581983&fm=21&gp=0.jpg"
+                 title="u=4129955145,409581983&fm=21&gp=0.jpg" />
+            </div>
+            </div>
+            </div>
+            </div>
+
+
             </div>
         {% endblock %}
+
     </div>
 {% endblock %}
 
-{% block scripts %}
-{{ super() }}
-{{ pagedown.include_pagedown() }}
 
-{% endblock %}
