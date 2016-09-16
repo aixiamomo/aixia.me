@@ -46,3 +46,7 @@ class TagForm(Form):
     url_name = StringField(u'Tag URL')
     submit = SubmitField(u'保存')
 
+
+class SearchForm(Form):
+    search = StringField('search', validators=[DataRequired()])
+

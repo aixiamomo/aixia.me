@@ -1,10 +1,12 @@
 # -*- coding: utf-8 -*-
+import flask_whooshalchemyplus
 from flask import Flask
 from flask_bootstrap import Bootstrap
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
 from flask_moment import Moment
 from flask_pagedown import PageDown
+
 
 login_manager = LoginManager()
 login_manager.session_protection = 'strong'  # 记录登陆IP和代理信息，异常就登出用户
@@ -24,6 +26,7 @@ def create_app():
     login_manager.init_app(app)
     moment.init_app(app)
     pagedown.init_app(app)
+    flask_whooshalchemyplus.init_app(app)
 
     from .dashboard import admin as admin_blueprint
     app.register_blueprint(admin_blueprint, url_prefix='/admin')

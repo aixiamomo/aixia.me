@@ -4,11 +4,16 @@
 3. Tag分类
 4. 分页功能
 5. General Setting
+6. Admin后台管理
+7. 全文搜索
 
 
 ##To Do
-1. Admin后台管理
+1. 前段JQ
 2. 多说评论
+3. 管理文章下添加文章搜索功能(全文搜索)用了flask_whooshalchemyPlus + jieba
+4. 删除前段代码里无用部分
+5. 功能式架构 or 分区式架构
 
 
 9.3 登陆后台后的模板，视图函数

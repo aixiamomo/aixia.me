@@ -3,10 +3,14 @@ from app import create_app, db
 from flask_script import Manager, Shell, Server
 from flask_migrate import Migrate, MigrateCommand
 from app.models import User, Post, Tag, belong_to
+# import flask_whooshalchemy as whooshalchemy
+
 
 app = create_app()
 manage = Manager(app)
 migrate = Migrate(app, db)
+
+# whooshalchemy.whoosh_index(app, Post)  # 给Post建立全文搜索
 
 
 def make_shell_context():

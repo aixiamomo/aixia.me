@@ -1,17 +1,19 @@
 # -*- coding: utf-8 -*-
 from datetime import datetime
 import bleach
+
 from . import db, login_manager
 
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
 from markdown import markdown
+from jieba.analyse.analyzer import ChineseAnalyzer
 
 
 class User(db.Model, UserMixin):
     __tablename__ = 'admin'
     id = db.Column(db.Integer, primary_key=True)
-    email = db.Column(db.String(64), index=True)
+    email = db.Column(db.String(64), index=True, unique=True)
     password_hash = db.Column(db.String(128))
     blog_title = db.Column(db.String(64), default="Let's face reality, loyalty to an ideal.")
     blog_description = db.Column(db.String(64), default=u"面对现实，忠于理想")
@@ -39,6 +41,8 @@ belong_to = db.Table('belong_to',
 
 class Post(db.Model):
     __tablename__ = 'posts'
+    __searchable__ = ['title']  # 添加搜索，建立索引
+    __analyzer__ = ChineseAnalyzer()  # 中文分词
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(64))
     cover = db.Column(db.String(64))

@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from . import admin
-from .forms import LoginForm, SettingForm, EditorForm, TagForm
+from .forms import LoginForm, SettingForm, EditorForm, TagForm, SearchForm
 from ..models import User, Post, Tag
 from app import db
 from flask import render_template, flash, redirect, url_for, request, current_app
@@ -89,6 +89,15 @@ def manage_posts():
     )
     posts = pagination.items
     return render_template('manage_posts.html', posts=posts, pagination=pagination)
+
+
+@login_required
+@admin.route('/search', methods=['GET', 'POST'])
+def search():
+    """搜索文章"""
+    form = SearchForm()
+    results = Post.query.whoosh_search(form.search.data).all()
+    return render_template('search.html', results=results, form=form)
 
 
 @login_required
