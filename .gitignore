@@ -4,26 +4,8 @@
 # Reference: https://intellij-support.jetbrains.com/hc/en-us/articles/206544839
 
 # User-specific stuff:
-.idea/workspace.xml
-.idea/tasks.xml
-.idea/dictionaries
-.idea/vcs.xml
-.idea/jsLibraryMappings.xml
+.ieda/
 
-# Sensitive or high-churn files:
-.idea/dataSources.ids
-.idea/dataSources.xml
-.idea/dataSources.local.xml
-.idea/sqlDataSources.xml
-.idea/dynamic.xml
-.idea/uiDesigner.xml
-
-# Gradle:
-.idea/gradle.xml
-.idea/libraries
-
-# Mongo Explorer plugin:
-.idea/mongoSettings.xml
 
 ## File-based project format:
 *.iws
@@ -33,8 +15,6 @@
 # IntelliJ
 /out/
 
-# mpeltonen/sbt-idea plugin
-.idea_modules/
 
 # JIRA plugin
 atlassian-ide-plugin.xml
@@ -134,3 +114,10 @@ ENV/
 
 # Rope project settings
 .ropeproject
+.idea/
+data.sqlite
+migrations/
+search.db/Post/MAIN_070jifxivc661hbm.seg
+search.db/Post/MAIN_1pcgarwvlu5xpxrc.seg
+search.db/Post/MAIN_dxlsdjwiievj0i8j.seg
+search.db/Post/_MAIN_8.toc

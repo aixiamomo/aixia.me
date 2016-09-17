@@ -43,46 +43,48 @@
 <main class="content" id="main" role="main">
 
     <article class="post {{post_class}}">
-
-     <section class="post-content">
-     <div class="single-post-inner">
-        {% if post.body_html %}
-            {{ post.body_html | safe }}
-        {% else %}
-            {{ post.body }}
-        {% endif %}
-        <div class="tag-box">
-            {% for tag in post.tags.all() %}
-                <a href="{{ url_for('.tag', url_name=tag.url_name) }}" style="color: rgb(255, 255, 255);" class="">
-                    <i class="iconfont iconfont-luolei"></i>{{ tag.name }}</a>
-            {% endfor %}
-        </div>
-        <div class="money-like" id="like-money">
-{#            悬停出二维码#}
-            <div class="reward-button">赏
-            <span class="money-code">
-            <span class="alipay-code">
-                <a href="javascript:;">
-                <img data-url="/static/images/qr-alipay-256.png" class="alipay-img" src="data:image/gif;base64,UklGRkoAAABXRUJQVlA4WAoAAAAQAAAAAAAAAAAAQUxQSAsAAAABBxAREYiI/gcAAABWUDggGAAAADABAJ0BKgEAAQABABwlpAADcAD+/gbQAA=="><b>支付宝扫码打赏</b>
-                </a>
-            </span>
-            <span class="wechat-code">
-                <img data-url="/static/images/qr-wechat-256.png" class="wechat-img" src="data:image/gif;base64,UklGRkoAAABXRUJQVlA4WAoAAAAQAAAAAAAAAAAAQUxQSAsAAAABBxAREYiI/gcAAABWUDggGAAAADABAJ0BKgEAAQABABwlpAADcAD+/gbQAA=="><b>微信打赏</b>
-            </span>
-            </span>
-
-            </div>
-            <p class="money-notice">若你觉得我的文章对你有帮助,欢迎点击上方按钮对我打赏</p>
-        </div>
-        <div class="qr-code">
-            <img src="https://encrypt.proxy.is26.com/qr?content=二维码" alt="">
-            <p>扫描二维码,分享此文章</p>
-        </div>
-     </div>
-    </section>
-
-
-
+{#    正文#}
+        <section class="post-content">
+            <div class="single-post-inner">
+            {% if post.body_html %}
+                {{ post.body_html | safe }}
+            {% else %}
+                {{ post.body }}
+            {% endif %}
+                <div class="tag-box">
+                    {% for tag in post.tags.all() %}
+                        <a href="{{ url_for('.tag', url_name=tag.url_name) }}" style="color: rgb(255, 255, 255);" class="">
+                            <i class="iconfont iconfont-luolei"></i>{{ tag.name }}</a>
+                    {% endfor %}
+                </div>
+{#                <div class="money-like" id="like-money">#}
+        {#            悬停出二维码#}
+{#                    <div class="reward-button">赏#}
+{#                    <span class="money-code">#}
+{#                    <span class="alipay-code">#}
+{#                        <a href="javascript:;">#}
+{#                        <img data-url="/static/images/qr-alipay-256.png" class="alipay-img" #}
+{#                             src="data:image/gif;base64,UklGRkoAAABXRUJQVlA4WAoAAAAQAAAAAAAAAAAAQU#}
+{#                             xQSAsAAAABBxAREYiI/gcAAABWUDggGAAAADABAJ0BKgEAAQABABwlpAADcAD+/gbQAA=="><b>支付宝扫码打赏</b>#}
+{#                        </a>#}
+{#                    </span>#}
+{#                    <span class="wechat-code">#}
+{#                        <img data-url="/static/images/qr-wechat-256.png" class="wechat-img" #}
+{#                             src="data:image/gif;base64,UklGRkoAAABXRUJQVlA4WAoAAAAQAAAAAAAAAAAAQU#}
+{#                             xQSAsAAAABBxAREYiI/gcAAABWUDggGAAAADABAJ0BKgEAAQABABwlpAADcAD+/gbQAA=="><b>微信打赏</b>#}
+{#                    </span>#}
+{#                    </span>#}
+{##}
+{#                    </div>#}
+{#                    <p class="money-notice">若你觉得我的文章对你有帮助,欢迎点击上方按钮对我打赏</p>#}
+{#                </div>#}
+{#                <div class="qr-code">#}
+{#                    <img src="https://encrypt.proxy.is26.com/qr?content=二维码" alt="">#}
+{#                    <p>扫描二维码,分享此文章</p>#}
+{#                </div>#}
+             </div>
+        </section>
+{#    个人信息#}
         <section class="author">
             <figure class="author-image duoshuo-loaded">
 {#                  用户头像#}
@@ -100,8 +102,8 @@
 
             </section>
         </section>
-
     </article>
+{#    其他社交站点#}
     <section class="share">
             <div class="share-icons" id="share-icons">
                <a class="icon-share" href="http://weibo.com/720974234">
@@ -115,6 +117,7 @@
                 </a>
             </div>
     </section>
+
 {#    阅读下一篇#}
     <aside class="read-next">
         {% if pagination.has_prev %}
@@ -156,7 +159,7 @@
             {% endfor %}
         {% endif %}
     </aside>
-
+{#    多说评论#}
     <section class="comment-area yasuko-only" >
     <!-- 多说评论框 start -->
         <div class="ds-thread" data-thread-key="{{ url_for('main.post', url_name=post.url_name) }}"
@@ -170,6 +173,6 @@
 </main>
 
 <script type="text/javascript" src="{{ url_for('static', filename='js/prism.js') }}"></script>
-
-    
+<!-- Highlight.js -->
+<script >hljs.initHighlightingOnLoad();</script>
 {% endblock %}

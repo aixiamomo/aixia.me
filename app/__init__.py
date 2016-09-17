@@ -5,7 +5,6 @@ from flask_bootstrap import Bootstrap
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
 from flask_moment import Moment
-from flask_pagedown import PageDown
 
 
 login_manager = LoginManager()
@@ -14,7 +13,6 @@ login_manager.login_view = 'admin.login'  # 登陆页面的端点
 bootstrap = Bootstrap()
 moment = Moment()
 db = SQLAlchemy()
-pagedown = PageDown()
 
 
 def create_app():
@@ -25,7 +23,6 @@ def create_app():
     db.init_app(app)
     login_manager.init_app(app)
     moment.init_app(app)
-    pagedown.init_app(app)
     flask_whooshalchemyplus.init_app(app)
 
     from .dashboard import admin as admin_blueprint
