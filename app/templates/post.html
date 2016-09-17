@@ -1,4 +1,4 @@
-{% extends "base/default.html" %}
+{% extends "base/layout.html" %}
 {% block meta_title %}
     {{ post.title }}
 {% endblock %}
@@ -102,7 +102,7 @@
         </section>
 
     </article>
-          <section class="share">
+    <section class="share">
             <div class="share-icons" id="share-icons">
                <a class="icon-share" href="http://weibo.com/720974234">
                     <span class=""><i class="iconfont iconfont-weibo">&#xe607;</i></span>
@@ -114,7 +114,7 @@
                     <span class=""><i class="iconfont  iconfont-zhihu">&#xe609;</i></span>
                 </a>
             </div>
-        </section>
+    </section>
 {#    阅读下一篇#}
     <aside class="read-next">
         {% if pagination.has_prev %}
@@ -155,11 +155,21 @@
             </a>
             {% endfor %}
         {% endif %}
+    </aside>
 
     <section class="comment-area yasuko-only" >
+    <!-- 多说评论框 start -->
+        <div class="ds-thread" data-thread-key="{{ url_for('main.post', url_name=post.url_name) }}"
+             data-title="{{ url_for('main.post', url_name=post.title) }}"
+             data-url="{{ url_for('main.post', url_name=post.url_name) }}">
+        </div>
+    <!-- 多说评论框 end -->
 
     </section>
-    </main>
-    <script type="text/javascript" src="{{ url_for('static', filename='js/prism.js') }}"></script>
+
+</main>
+
+<script type="text/javascript" src="{{ url_for('static', filename='js/prism.js') }}"></script>
+
     
 {% endblock %}

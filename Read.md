@@ -5,15 +5,16 @@
 4. 分页功能
 5. General Setting
 6. Admin后台管理
-7. 全文搜索
+7. 全文搜索，flask_whooshalchemyPlus + jieba
 
 
 ##To Do
 1. 前段JQ
 2. 多说评论
-3. 管理文章下添加文章搜索功能(全文搜索)用了flask_whooshalchemyPlus + jieba
+3. 七牛or又拍云，做个自己的图床
 4. 删除前段代码里无用部分
 5. 功能式架构 or 分区式架构
+6. QR二维码的接口，自动生成当前文章的二维码
 
 
 9.3 登陆后台后的模板，视图函数
