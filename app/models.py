@@ -84,8 +84,8 @@ class Post(db.Model):
                         'h1', 'h2', 'h3', 'p']  # 白名单
         target.body_html = bleach.linkify(bleach.clean(
             markdown(value, output_format='html'),
-            tags=allowed_tags, strip=True)).replace('<pre>', '<pre class="language-python">').\
-            replace('<code>', '<code class="language-python">')  # 真实的转换过程，（强行python_(:3」∠)_）
+            tags=allowed_tags, strip=True))#.replace('<pre>', '<pre class="language-python">').\
+            # replace('<code>', '<code class="language-python">')  # 真实的转换过程，（强行python_(:3」∠)_）
 
     # @staticmethod
     # def scheme_html(target, value, oldvalue, initiator):
