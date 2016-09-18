@@ -19,11 +19,6 @@
 [highlight](http://www.bootcdn.cn/highlight.js/)
 
 
-## 脑子不够用。。
-怎么在Post model根据markdown格式的body生成body.html的时候，给代码块加入class属性
-flask-misaka也可以根据markdown，生成html传到模板里，两种的区别
-
-
 ## 使用
 创建数据库&生成用户：`python manage.py shell`
-创建迁移库：
+创建迁移库：`python manage.py db init`
