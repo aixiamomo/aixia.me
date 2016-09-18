@@ -95,7 +95,7 @@ pre, textarea {
 }
 
 code, kbd, pre, samp {
-    font-family: monospace, monospace;
+    font-family: Exo, '-apple-system', 'Open Sans', HelveticaNeue-Light, 'Helvetica Neue Light', 'Helvetica Neue', 'Hiragino Sans GB', 'Microsoft YaHei', Helvetica, Arial, sans-serif;
     font-size: 1em
 }
 
@@ -164,7 +164,7 @@ table {
     border-collapse: collapse
 }
 
-code[class*=hljs], pre[class*=hljs] {
+code[class*=hljs], pre {
     font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
     line-height: 1.5;
     text-align: left;
@@ -184,29 +184,29 @@ code[class*=hljs], pre[class*=hljs] {
     -ms-hyphens: none
 }
 
-code[class*=hljs] ::-moz-selection, code[class*=hljs]::-moz-selection, pre[class*=hljs] ::-moz-selection, pre[class*=hljs]::-moz-selection {
+code[class*=hljs] ::-moz-selection, code[class*=hljs]::-moz-selection, pre ::-moz-selection, pre::-moz-selection {
     background: #b3d4fc;
     text-shadow: none
 }
 
-code[class*=hljs] ::selection, code[class*=hljs]::selection, pre[class*=hljs] ::selection, pre[class*=hljs]::selection {
+code[class*=hljs] ::selection, code[class*=hljs]::selection, pre ::selection, pre::selection {
     background: #b3d4fc;
     text-shadow: none
 }
 
 @media print {
-    code[class*=hljs], pre[class*=hljs] {
+    code[class*=hljs], pre {
         text-shadow: none
     }
 }
 
-pre[class*=hljs] {
+pre {
     overflow: auto;
     margin: .5em 0;
     padding: 1em
 }
 
-:not(pre) > code[class*=hljs], pre[class*=hljs] {
+:not(pre) > code[class*=hljs], pre {
     background: #f5f2f0
 }
 
