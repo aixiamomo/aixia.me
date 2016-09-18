@@ -25,10 +25,10 @@ def create_app():
     moment.init_app(app)
     flask_whooshalchemyplus.init_app(app)
 
-    from .dashboard import admin as admin_blueprint
+    from .admin import admin as admin_blueprint
     app.register_blueprint(admin_blueprint, url_prefix='/admin')
 
-    from .main import main as main_blueprint
-    app.register_blueprint(main_blueprint)
+    from .home import home as home_blueprint
+    app.register_blueprint(home_blueprint)
 
     return app

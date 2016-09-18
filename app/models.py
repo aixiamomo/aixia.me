@@ -61,20 +61,20 @@ class Post(db.Model):
                            backref=db.backref('posts', lazy='dynamic'),
                            lazy='dynamic')
 
-    @staticmethod
-    def generate_fake(count=20):
-        from random import seed, randint
-        import forgery_py
-
-        seed()
-        for i in range(count):
-            p = Post(title=forgery_py.internet.user_name(True),
-                     body=forgery_py.lorem_ipsum.sentences(randint(1, 3)),
-                     create_date=forgery_py.date.date(True),
-                     url_name=forgery_py.internet.user_name(True)
-                     )
-            db.session.add(p)
-            db.session.commit()
+    # @staticmethod
+    # def generate_fake(count=20):
+    #     from random import seed, randint
+    #     import forgery_py
+    #
+    #     seed()
+    #     for i in range(count):
+    #         p = Post(title=forgery_py.internet.user_name(True),
+    #                  body=forgery_py.lorem_ipsum.sentences(randint(1, 3)),
+    #                  create_date=forgery_py.date.date(True),
+    #                  url_name=forgery_py.internet.user_name(True)
+    #                  )
+    #         db.session.add(p)
+    #         db.session.commit()
 
     @staticmethod
     def on_changed_body(target, value, oldvalue, initiator):

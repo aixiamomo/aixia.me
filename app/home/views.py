@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
-from . import main
+from . import home
 from app.models import Post, Tag, User
-from flask import render_template, request, current_app, abort
+from flask import render_template, request, abort
 
 
-@main.route('/', methods=['GET', 'POST'])
+@home.route('/', methods=['GET', 'POST'])
 def index():
     page = request.args.get('page', 1, type=int)
     user = User.query.get_or_404(1)
@@ -16,7 +16,7 @@ def index():
     return render_template('index.html', posts=posts, pagination=pagination, user=user)
 
 
-@main.route('/post/<url_name>')
+@home.route('/post/<url_name>')
 def post(url_name):
     post = Post.query.filter_by(url_name=url_name).first_or_404()
     if post.publish == 0:  # 只显示提交了的文章
@@ -30,7 +30,7 @@ def post(url_name):
     return render_template('post.html', post=post, pagination=pagination, user=user)
 
 
-@main.route('/tag/<url_name>')
+@home.route('/tag/<url_name>')
 def tag(url_name):
     tag = Tag.query.filter_by(url_name=url_name).first_or_404()
     page = request.args.get('page', 1, type=int)

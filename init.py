@@ -7,9 +7,8 @@ app = create_app()
 with app.app_context():
     db.create_all()
     u = User()
-    u.email = '920534583@qq.com'
-    u.password = 'qq920534583'
+    u.email = 'admin@admin.com'
+    u.password = 'password'
     db.session.add(u)
     db.session.commit()
-    Post.generate_fake()
-
+    # Post.generate_fake()

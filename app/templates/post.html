@@ -17,7 +17,7 @@
 
         <div class="nav-header">
         <div class="nav-header-container">
-             <a href="{{ url_for('main.index') }}" class="back-home">Home</a>
+             <a href="{{ url_for('home.index') }}" class="back-home">Home</a>
         </div>
         </div>
         <div class="header-wrap" >
@@ -97,7 +97,7 @@
                  <p>{{ user.author_detail }}</p>
                 <div class="author-meta">
                     <span class="author-location">Shanghai「上海」</span>
-                    <span class="author-link"><a href="{{ url_for('main.index') }}">aixia's blog</a></span>
+                    <span class="author-link"><a href="{{ url_for('home.index') }}">aixia's blog</a></span>
                 </div>
 
             </section>
@@ -162,9 +162,9 @@
 {#    多说评论#}
     <section class="comment-area yasuko-only" >
     <!-- 多说评论框 start -->
-        <div class="ds-thread" data-thread-key="{{ url_for('main.post', url_name=post.url_name) }}"
-             data-title="{{ url_for('main.post', url_name=post.title) }}"
-             data-url="{{ url_for('main.post', url_name=post.url_name) }}">
+        <div class="ds-thread" data-thread-key="{{ url_for('home.post', url_name=post.url_name) }}"
+             data-title="{{ url_for('home.post', url_name=post.title) }}"
+             data-url="{{ url_for('home.post', url_name=post.url_name) }}">
         </div>
     <!-- 多说评论框 end -->
 
