@@ -1,6 +1,8 @@
 # aixia.me
 ![](https://ooo.0o0.ooo/2017/02/10/589d63356aed4.png)
-基于flask的个人博客
+基于Flask的个人博客
+
+预览地址:[aiax.info](http://aiax.info)
 
 ##Done
 1. 博客框架
