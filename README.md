@@ -1,5 +1,7 @@
 # aixia.me
-flask个人博客
+![](https://ooo.0o0.ooo/2017/02/10/589d63356aed4.png)
+基于flask的个人博客
+
 ##Done
 1. 博客框架
 2. 添加Markdown
@@ -19,6 +21,12 @@ flask个人博客
 3. 找个二维码的api，自动生成当前文章的二维码
 4. 代码高亮还是有点问题，可选方案：[prism](http://prismjs.com/)
 [highlight](http://www.bootcdn.cn/highlight.js/)
+
+
+### 预览图
+![aiax.info-(iPhone 6 Plus).png](https://ooo.0o0.ooo/2017/02/10/589d60ef8accd.png)
+![login.png](https://ooo.0o0.ooo/2017/02/10/589d610276cbf.png)
+![](https://ooo.0o0.ooo/2017/02/10/589d60fac869b.png)
 
 
 ## 使用
